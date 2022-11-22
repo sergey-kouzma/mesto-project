@@ -1,0 +1,12 @@
+.form__field {
+    font-size: 14px;
+    font-weight: 400;
+    padding:0px;
+    margin:0px;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #dddddd;
+    padding-bottom: 6px;
+}
+
+

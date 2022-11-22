@@ -1,0 +1,14 @@
+.popup__close {
+    position: absolute;
+    top:-40px;
+    right:-40px;
+    z-index: 102;
+    width: 32px;
+    height: 32px;
+    background-image: url(../../../images/close-icon.png);
+}
+
+.popup__close:hover {
+    background-image: url(../../../images/close-icon-hover.png);
+    cursor: pointer;
+}
