@@ -9,3 +9,16 @@
     background-repeat: no-repeat;
     background-size: 22px 22px;
 }
+
+.profile__plus:hover {
+    opacity:0.6;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+    .profile__plus {
+        margin-top: 36px;
+        width:100%;
+        max-width:320px;
+    }
+}

@@ -18,3 +18,10 @@
     list-style-type: none;
     padding: 0px 48px;
 }
+
+@media screen and (max-width: 880px) {
+    .elements {
+        padding-left: 19px;
+        padding-right: 19px;
+    }
+}
