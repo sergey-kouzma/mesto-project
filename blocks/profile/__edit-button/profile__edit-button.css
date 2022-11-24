@@ -8,9 +8,21 @@
     background-repeat: no-repeat;
     background-size: 10px 10px;
     margin-left: 18px;
+    margin-top: 15px;
+}
+
+
+@media screen and (max-width: 767px) {
+    .profile__edit-button {
+        margin-top: 8px;
+        width: 18px;
+        height: 18px;
+        margin-left: 10px;
+    }
 }
 
 .profile__edit-button:hover {
     opacity:0.6;
     cursor:pointer;
+    
 }
