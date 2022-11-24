@@ -4,10 +4,11 @@
     padding:0px;
     margin:47px 0px 0px;
     width: 100%;
-    border-radius: 0px;
+    border-radius: 2px;
     background-color: black;
     color:white;
     height: 50px;
+    line-height:21.78px;
 }
 
 .form__button:hover {
@@ -18,5 +19,6 @@
     .form__button {
         margin-top:45px 0px 0px;
         height: 46px;
+        line-height:16.94px;
     }
 }

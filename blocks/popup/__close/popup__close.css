@@ -5,12 +5,12 @@
     z-index: 102;
     width: 32px;
     height: 32px;
-    background-image: url(../../../images/close-icon.png);
+    background: url(../../../images/close-icon.svg);
     background-size: cover;
 }
 
 .popup__close:hover {
-    background-image: url(../../../images/close-icon-hover.png);
+    opacity:0.6;
     cursor: pointer;
 }
 

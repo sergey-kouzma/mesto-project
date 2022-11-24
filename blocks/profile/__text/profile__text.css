@@ -1,7 +1,6 @@
 .profile__text {
     flex-grow: 1;
     display: flex;
-    /*grid-template-columns: minmax(200px, 300px) 1fr;*/
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: start;

@@ -1,5 +1,5 @@
 .card__like {
-    background-image: url(../../../images/like.png);
+    background-image: url(../../../images/like.svg);
     width: 22px;
     height: 19px;
     background-position: cover;
@@ -8,6 +8,6 @@
 }
 
 .card__like:hover {
-    background-image: url(../../../images/like-hover.png);
+    background-image: url(../../../images/like-hover.svg);
     cursor: pointer;
 }

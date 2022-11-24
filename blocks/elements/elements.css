@@ -7,18 +7,6 @@
     grid-row-gap: 20px;
 }
 
-.photo-grid {
-    max-width: 1184px;
-    margin: 92px auto 92px;
-    padding:0px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(284px, 1fr));
-    grid-column-gap: 16px;
-    grid-row-gap: 16px;
-    list-style-type: none;
-    padding: 0px 48px;
-}
-
 @media screen and (max-width: 880px) {
     .elements {
         padding-left: 19px;
