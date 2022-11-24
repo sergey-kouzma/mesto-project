@@ -1,6 +1,6 @@
 .form__button {
     font-weight:400;
-    font-size: 14px;
+    font-size: 18px;
     padding:0px;
     margin:47px 0px 0px;
     width: 100%;
@@ -20,5 +20,6 @@
         margin-top:45px 0px 0px;
         height: 46px;
         line-height:16.94px;
+        font-size: 14px;
     }
 }

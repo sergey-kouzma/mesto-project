@@ -18,8 +18,9 @@
 
 @media screen and (max-width: 767px) {
     .profile__plus {
-        margin-top: 36px;
+        margin-top: 32px;
         width:100%;
         max-width:320px;
+        background-size: 16px 16px;
     }
 }
