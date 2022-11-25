@@ -10,5 +10,6 @@
     .profile__description {
         font-size: 14px;
         line-height: 16.94px;
+        max-width: 282px;
     }
 }

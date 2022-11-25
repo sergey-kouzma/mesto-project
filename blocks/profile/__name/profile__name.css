@@ -16,5 +16,6 @@
         line-height: 32.68px;
         margin-top: 3px;
         margin-bottom: 8px;
+        max-width: 260px;
     }
 }
