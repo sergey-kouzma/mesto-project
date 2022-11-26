@@ -10,5 +10,6 @@
     .profile__text {
         margin-top: 26px;
         justify-content: center;
+        max-width: 320px;
     }
 }
