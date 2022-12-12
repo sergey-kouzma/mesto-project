@@ -81,6 +81,7 @@
     </div>
     <template id="card-template">
         <div class="elements__item card">
+            <button class="card__delete"></button>
             <img src="./images/cards/Dombay.png" alt="Домбай" class="card__img">
             <div class="card__caption">
                 <h2 class="card__header"></h2>
@@ -93,10 +94,10 @@
             <h2 class="popup__header">Редактирвоать профиль</h2>
             <form action="/" name="edit-profile" class="form">
                 <label>
-                    <input type="text" class="form__field" value="" name="name">
+                    <input type="text" class="form__field" value="" name="name" placeholder="Имя">
                 </label>
                 <label>
-                    <input type="text" class="form__field" value="" name="description">
+                    <input type="text" class="form__field" value="" name="description" placeholder="Описание">
                 </label>
                 <label>
                     <button type="submit" class="form__button">Сохранить</button>
@@ -109,10 +110,10 @@
             <h2 class="popup__header">Добавить место</h2>
             <form action="/" name="add-place" class="form">
                 <label>
-                    <input type="text" class="form__field" value="" name="img">
+                    <input type="text" class="form__field" value="" name="img" placeholder="Ссылка на картинку">
                 </label>
                 <label>
-                    <input type="text" class="form__field" value="" name="name">
+                    <input type="text" class="form__field" value="" name="name" placeholder="Название места">
                 </label>
                 <label>
                     <button type="submit" class="form__button">Добавить</button>
@@ -120,6 +121,7 @@
             </form>
         </div>
     </template>
+    <script src="./scripts/cards.js"></script>
     <script src="./scripts/popup.js"></script>
     <script src="./scripts/profile.js"></script>
     <script src="./scripts/places.js"></script>
