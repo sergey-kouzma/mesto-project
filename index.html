@@ -74,7 +74,7 @@
     <div class="popup">
         <div class="popup__container">
             <button type="button" class="popup__close" aria-label="Закрыть"></button>
-            <div class="popup__content">
+            <div class="popup__content"><!--popup__content_no-borders-->
 
             </div>
         </div>
@@ -107,16 +107,16 @@
     </template>
     <template id="add-place-template">
         <div class="add-place">
-            <h2 class="popup__header">Добавить место</h2>
+            <h2 class="popup__header">Новое место</h2>
             <form action="/" name="add-place" class="form">
                 <label>
                     <input type="text" class="form__field" value="" name="img" placeholder="Ссылка на картинку">
                 </label>
                 <label>
-                    <input type="text" class="form__field" value="" name="name" placeholder="Название места">
+                    <input type="text" class="form__field" value="" name="name" placeholder="Название">
                 </label>
                 <label>
-                    <button type="submit" class="form__button">Добавить</button>
+                    <button type="submit" class="form__button">Создать</button>
                 </label>
             </form>
         </div>

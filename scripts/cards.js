@@ -64,7 +64,7 @@ function addCard(title, link) {
         const bigImg = document.createElement("IMG");
         bigImg.setAttribute("src", cardImg.getAttribute("src"));
         bigImg.classList.add("popup_size");
-        openPopup(bigImg);
+        openPopup(bigImg, true);
     });
     cardLike.addEventListener("click", function() {
         cardLike.classList.toggle("card__like_active");

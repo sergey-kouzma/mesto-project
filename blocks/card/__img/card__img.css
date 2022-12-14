@@ -4,6 +4,6 @@
 }
 
 .popup_size {
-    width: 360px;
-
+    width: 100%;
+    display: block;
 }
