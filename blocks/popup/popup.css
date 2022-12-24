@@ -6,7 +6,10 @@
     left:0px;
     justify-content: center;
     align-items: center;
-    display: none;
     z-index: 100;
     background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    transition: all .3s ease-in-out;
 }

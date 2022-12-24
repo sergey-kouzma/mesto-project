@@ -42,10 +42,6 @@ const initialCards = [
   ///////////////////////////////////////
 
 initialCards.forEach(function (element) {
-    // const cardElement = createCardElement();
-    // const blockName = cardElement.querySelector(".card__header");
-    // blockName.textContent = element.name;
-    // cardsContainer.append(cardElement);
     addCard(element.name, element.link);
 });
 function addCard(title, link) {
@@ -63,8 +59,19 @@ function addCard(title, link) {
     cardImg.addEventListener("click", function() {
         const bigImg = document.createElement("IMG");
         bigImg.setAttribute("src", cardImg.getAttribute("src"));
-        bigImg.classList.add("popup_size");
-        openPopup(bigImg, true);
+        bigImg.classList.add("full-picture__img");
+        
+        const textElement = document.createElement("p");
+        textElement.textContent = blockName.textContent;
+        textElement.classList.add("full-picture__text");
+
+        const blockWithImg = document.createElement("div");
+        bigImg.classList.add("full-picture");
+        
+        blockWithImg.append(bigImg);
+        blockWithImg.append(textElement);
+
+        openPopup(blockWithImg, true);
     });
     cardLike.addEventListener("click", function() {
         cardLike.classList.toggle("card__like_active");
