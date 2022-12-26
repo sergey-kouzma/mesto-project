@@ -3,9 +3,10 @@ const addPlaceButton = document.querySelector(".profile__plus");
 const placeFieldImg = document.querySelector(".add-place__img")
 const placeFieldName = document.querySelector(".add-place__name");
 const addPlaceform = document.querySelector(".add-place__form");
+addEventsToPlaceForm();
 
 addPlaceButton.addEventListener("click", function () {
-    addEventsToPlaceForm();
+    
     openPopup(addPlaceform.closest('.popup'));    
 });
 
