@@ -50,32 +50,43 @@ function addCard(title, link) {
     const blockName = cardElement.querySelector(".card__header");
     const cardLike = cardElement.querySelector(".card__like");
     const cardDelete = cardElement.querySelector(".card__delete");
+    const bigImg = cardElement.querySelector(".full-picture__img");
+    const bigImgText = cardElement.querySelector(".full-picture__text");
+
     cardImg.setAttribute("src", link);
     cardImg.setAttribute("alt", title);
+    bigImg.setAttribute("src", link);
+    bigImg.setAttribute("alt", title);
     blockName.textContent = title;
+    bigImgText.textContent = title;
     cardDelete.addEventListener("click", function() {
         cardDelete.parentElement.remove();
     });
+    
     cardImg.addEventListener("click", function() {
-        const bigImg = document.createElement("IMG");
-        bigImg.setAttribute("src", cardImg.getAttribute("src"));
-        bigImg.classList.add("full-picture__img");
+        // const bigImg = document.createElement("IMG");
+        // bigImg.setAttribute("src", cardImg.getAttribute("src"));
+        // bigImg.classList.add("  ");
         
-        const textElement = document.createElement("p");
-        textElement.textContent = blockName.textContent;
-        textElement.classList.add("full-picture__text");
+        // const textElement = document.createElement("p");
+        // textElement.textContent = blockName.textContent;
+        // textElement.classList.add("full-picture__text");
 
-        const blockWithImg = document.createElement("div");
-        bigImg.classList.add("full-picture");
+        // const blockWithImg = document.createElement("div");
+        // bigImg.classList.add("full-picture");
         
-        blockWithImg.append(bigImg);
-        blockWithImg.append(textElement);
+        // blockWithImg.append(bigImg);
+        // blockWithImg.append(textElement);
 
-        openPopup(blockWithImg, true);
+        openPopup(cardElement.querySelector('.popup'), true);
+        addCloseButtonEvent(cardElement.querySelector('.popup__close'));
+        console.log(cardElement.querySelector('.popup__close'));
     });
     cardLike.addEventListener("click", function() {
         cardLike.classList.toggle("card__like_active");
     });
+    addCloseButtonEvent(cardElement.querySelector('.popup__close'));
     cardsContainer.append(cardElement);  
+    
 
 }

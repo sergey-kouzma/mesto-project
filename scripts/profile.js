@@ -4,42 +4,27 @@ const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
 
+const editProfileForm = document.querySelector(".edit-profile__form")
+const fieldName = document.querySelector(".edit-profile__name");
+const fieldDescription= document.querySelector(".edit-profile__description");
+addEventsToProfileForm();
+
 editProfileButton.addEventListener("click", function () {
-    const profileForm = createEditProfileForm();
-    openPopup(profileForm);
+    setFields(editProfileForm);
+    openPopup(editProfileForm.closest('.popup'));
 });
 
-function createEditProfileForm() {
-    const profileFormBlock = createProfileFormBlock();
-
-    setFields(profileFormBlock);
-    addEventsToProfileForm(profileFormBlock);
-
-    return profileFormBlock;
-}
-
-function createProfileFormBlock() {
-    const profileFormTemplate = document.querySelector("#edit-profile-template").content;
-    const profileFormBlock = profileFormTemplate.querySelector(".edit-profile").cloneNode(true);
-    return profileFormBlock;
-}
-
-function setFields(profileFormBlock) {
-    const fieldName = profileFormBlock.querySelector(".form__field[name='name']");
-    const fieldDescription = profileFormBlock.querySelector(".form__field[name='description']");
+function setFields() {
     fieldName.value = profileName.textContent;
     fieldDescription.value = profileDescription.textContent;
 }
 
-function addEventsToProfileForm(profileFormBlock) {
-    const fieldName = profileFormBlock.querySelector(".form__field[name='name']");
-    const fieldDescription = profileFormBlock.querySelector(".form__field[name='description']");
-    const profileForm = profileFormBlock.querySelector(".form");
-    profileForm.addEventListener("submit", function (event) {
+function addEventsToProfileForm() {
+    editProfileForm.addEventListener("submit", function (event) {
         event.preventDefault();
         profileName.textContent = fieldName.value;
         profileDescription.textContent = fieldDescription.value;
-        closePopup ();
+        closePopup (editProfileForm.closest('.popup'));
     });
 }
 

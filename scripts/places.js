@@ -1,26 +1,21 @@
 const addPlaceButton = document.querySelector(".profile__plus");
 
+const placeFieldImg = document.querySelector(".add-place__img")
+const placeFieldName = document.querySelector(".add-place__name");
+const addPlaceform = document.querySelector(".add-place__form");
+
 addPlaceButton.addEventListener("click", function () {
-    const addPlaceFormElement = createCardFormElement();
-    
-    addEventsToPlaceForm(addPlaceFormElement);
-    openPopup(addPlaceFormElement);    
+    addEventsToPlaceForm();
+    openPopup(addPlaceform.closest('.popup'));    
 });
 
-function addEventsToPlaceForm(addPlaceFormElement) {
-    const fieldImg = addPlaceFormElement.querySelector(".form__field[name='img']")
-    const fieldName = addPlaceFormElement.querySelector(".form__field[name='name']");
-    const addPlaceform = addPlaceFormElement.querySelector(".form");
-
+function addEventsToPlaceForm() {
     addPlaceform.addEventListener("submit", function (event){
         event.preventDefault();
-        // const cardElement = createCardElement();
-        // const blockName = cardElement.querySelector(".card__header");
-        // blockName.textContent = fieldName.value;
-        // cardsContainer.append(cardElement);
-        addCard(fieldName.value, fieldImg.value);
-        closePopup();
-        
+        addCard(placeFieldName.value, placeFieldImg.value);
+        placeFieldName.value = "";
+        placeFieldImg.value = "";
+        closePopup(addPlaceform.closest('.popup'));
     });
 }
 
