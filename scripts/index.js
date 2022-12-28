@@ -139,26 +139,26 @@ const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
 
-const editProfileForm = document.querySelector(".edit-profile__form")
-const fieldName = document.querySelector(".edit-profile__name");
-const fieldDescription= document.querySelector(".edit-profile__description");
+const editProfileForm = popupProfileEdit.querySelector(".edit-profile__form")
+const fieldProfileName = popupProfileEdit.querySelector(".edit-profile__name");
+const fieldProfileDescription= popupProfileEdit.querySelector(".edit-profile__description");
 addEventsToProfileForm();
 
 editProfileButton.addEventListener("click", function () {
-    setFields(); // вынос кода в отдельный метод делает его более читаемым. Согласно рекомендациям Боба Мартина Чистый Код
+    setFieldsToEditProfileForm(); // вынос кода в отдельный метод делает его более читаемым. Согласно рекомендациям Боба Мартина Чистый Код
     openPopup(popupProfileEdit);
 });
 
-function setFields() {
-    fieldName.value = profileName.textContent;
-    fieldDescription.value = profileDescription.textContent;
+function setFieldsToEditProfileForm() {
+    fieldProfileName.value = profileName.textContent;
+    fieldProfileDescription.value = profileDescription.textContent;
 }
 
 function addEventsToProfileForm() {
     editProfileForm.addEventListener("submit", function (event) {
         event.preventDefault();
-        profileName.textContent = fieldName.value;
-        profileDescription.textContent = fieldDescription.value;
+        profileName.textContent = fieldProfileName.value;
+        profileDescription.textContent = fieldProfileDescription.value;
         closePopup (popupProfileEdit);
     });
 }
