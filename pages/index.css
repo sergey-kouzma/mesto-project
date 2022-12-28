@@ -38,6 +38,7 @@
 @import url(../blocks/popup/__container/_no-borders/popup__container_no-borders.css);
 
 @import url(../blocks/form/form.css);
+@import url(../blocks/form/elem-block/form__elem-block.css);
 @import url(../blocks/form/__button/form__button.css);
 @import url(../blocks/form/__field/form__field.css);
 
