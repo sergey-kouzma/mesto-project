@@ -22,15 +22,16 @@ function closePopup (popup) {
 // Часть, которая относится к карточке
 // Оставил здесь, а не вверху файла, чтобы легче было потом выносить в отдельный файл, когда такая задача будет
 const cardsContainer = document.querySelector(".elements");
-const cardTemplate = document.querySelector("#card-template").content;
+// const cardTemplate = document.querySelector("#card-template").content;
+const cardTemplate = document.querySelector("#card-template").content.querySelector(".card");
 const popupWithBigImage = document.querySelector('.popup_big-image');
 const bigImg = popupWithBigImage.querySelector(".full-picture__img");
 const bigImgText = popupWithBigImage.querySelector(".full-picture__text");
 
-function createCardElement() {
-    const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-    return cardElement;
-}
+// function createCardElement() {
+//     const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+//     return cardElement;
+// }
 
 ///////////////////////////////////////
 const initialCards = [
@@ -72,12 +73,20 @@ function addCard(cardInitData) {
     renderCard(cardElement);
 }
 
+function openBigImage(imageData) {
+    bigImg.setAttribute("src", imageData.link);
+    bigImg.setAttribute("alt", imageData.title);
+    bigImgText.textContent = imageData.title;
+    openPopup(popupWithBigImage);
+}
+
 function createCard(cardInitData) {
     const title = cardInitData.title;
     const link = cardInitData.link;
-    const cardElement = createCardElement(); // такой стиль читаемее и рекомендуется, например, Бобом Мартином в Книге Чистый год
+    //const cardElement = createCardElement(); // такой стиль читаемее и рекомендуется, например, Бобом Мартином в Книге Чистый год
     // const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
     // незакомментированная строка выглядит гораздо читемее, чем закомментированная
+    const cardElement = cardTemplate.clone(true);
     const cardImg = cardElement.querySelector(".card__img");
     const blockName = cardElement.querySelector(".card__header");
     const cardLike = cardElement.querySelector(".card__like");
@@ -89,12 +98,7 @@ function createCard(cardInitData) {
     cardDelete.addEventListener("click", function() {
         cardDelete.closest('.card').remove();
     });
-    cardImg.addEventListener("click", function() {
-        bigImg.setAttribute("src", link);
-        bigImg.setAttribute("alt", title);
-        bigImgText.textContent = title;
-        openPopup(popupWithBigImage);
-    });
+    cardImg.addEventListener("click", () => openBigImage({ title, link }));
     cardLike.addEventListener("click", function() {
         cardLike.classList.toggle("card__like_active");
     });
@@ -133,18 +137,18 @@ function addEventsToPlaceForm() {
 
 // Часть про редактирование профайла
 const popupProfileEdit = document.querySelector('.popup_profile-edit');
-const editProfileButton = document.querySelector(".profile__edit-button");
+const buttonProfileEdit = document.querySelector(".profile__edit-button");
 
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
 
-const editProfileForm = popupProfileEdit.querySelector(".edit-profile__form")
+const formProfileEdit = popupProfileEdit.querySelector(".edit-profile__form")
 const fieldProfileName = popupProfileEdit.querySelector(".edit-profile__name");
 const fieldProfileDescription= popupProfileEdit.querySelector(".edit-profile__description");
 addEventsToProfileForm();
 
-editProfileButton.addEventListener("click", function () {
+buttonProfileEdit.addEventListener("click", function () {
     setFieldsToEditProfileForm(); // вынос кода в отдельный метод делает его более читаемым. Согласно рекомендациям Боба Мартина Чистый Код
     openPopup(popupProfileEdit);
 });
@@ -155,7 +159,7 @@ function setFieldsToEditProfileForm() {
 }
 
 function addEventsToProfileForm() {
-    editProfileForm.addEventListener("submit", function (event) {
+    formProfileEdit.addEventListener("submit", function (event) {
         event.preventDefault();
         profileName.textContent = fieldProfileName.value;
         profileDescription.textContent = fieldProfileDescription.value;

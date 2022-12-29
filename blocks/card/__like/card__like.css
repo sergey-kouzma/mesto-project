@@ -10,6 +10,7 @@
 }
 
 .card__like:hover {
-    background-image: url(../../../images/like-hover.svg);
+
+    opacity: 0.6;
     cursor: pointer;
 }
