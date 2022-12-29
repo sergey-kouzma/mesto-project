@@ -86,7 +86,7 @@ function createCard(cardInitData) {
     //const cardElement = createCardElement(); // такой стиль читаемее и рекомендуется, например, Бобом Мартином в Книге Чистый год
     // const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
     // незакомментированная строка выглядит гораздо читемее, чем закомментированная
-    const cardElement = cardTemplate.clone(true);
+    const cardElement = cardTemplate.cloneNode(true);
     const cardImg = cardElement.querySelector(".card__img");
     const blockName = cardElement.querySelector(".card__header");
     const cardLike = cardElement.querySelector(".card__like");
