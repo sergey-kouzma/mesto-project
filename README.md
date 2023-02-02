@@ -9,6 +9,5 @@
 4. Адаптивная верстка
 5. JavaScript
 
-
 ## Демонстрация работы
 https://sergey-kouzma.github.io/mesto-project/
