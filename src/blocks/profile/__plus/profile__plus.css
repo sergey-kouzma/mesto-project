@@ -1,0 +1,26 @@
+.profile__plus {
+    width: 150px;
+    height: 50px;
+    border: 2px solid #FFFFFF;
+    border-radius: 2px;
+    background-color: rgba(0, 0, 0, 0);
+    margin: 14px 0px;
+    background-position: center;
+    background-image: url(../../../images/plus.svg);
+    background-repeat: no-repeat;
+    background-size: 22px 22px;
+}
+
+.profile__plus:hover {
+    opacity:0.6;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+    .profile__plus {
+        margin-top: 32px;
+        width:100%;
+        max-width:320px;
+        background-size: 16px 16px;
+    }
+}

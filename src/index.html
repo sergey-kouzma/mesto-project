@@ -5,16 +5,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./pages/index.css">
     <title>Проект моё место</title>
 </head>
 
 <body class="page">
     <header class="header">
-        <a href="/"><img src="./images/logo.svg" alt="Логотип" class="header__logo"></a>
+        <a href="/"><img src="<%=require('./images/logo.svg')%>" alt="Логотип" class="header__logo"></a>
     </header>
     <main>
         <section class="profile">
-            <img src="./images/avatar.jpg" alt="Аватарка" class="profile__avatar">
+            <img src="<%=require('./images/avatar.jpg')%>" alt="Аватарка" class="profile__avatar">
             <div class="profile__text">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
                 <button type="button" class="profile__edit-button" aria-label="Редактирвоать"></button>
@@ -43,7 +44,7 @@
     <template id="card-template">
         <div class="elements__item card">
             <button class="card__delete"></button>
-            <img src="./images/cards/Dombay.png" alt="Домбай" class="card__img">
+            <img src="<%=require('./images/cards/Dombay.png')%>" alt="Домбай" class="card__img">
             <div class="card__caption">
                 <h2 class="card__header"></h2>
                 <button type="button" class="card__like" aria-label="Лайк"></button>
@@ -95,13 +96,6 @@
             </div>
         </div>
     </div>
-    <script src="./scripts/index.js"></script>
-    <!--
-    <script src="./scripts/popup.js"></script>
-    <script src="./scripts/cards.js"></script>
-    <script src="./scripts/profile.js"></script>
-    <script src="./scripts/places.js"></script>
-    -->
 </body>
 
 </html>
