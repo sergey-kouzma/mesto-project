@@ -59,11 +59,13 @@
                 <h2 class="popup__header">Редактировать профиль</h2>
                 <form action="/" name="edit-profile" class="form edit-profile__form">
                     <p class="form__elem-block">
-                        <input type="text" class="form__field edit-profile__name" value="" name="name" placeholder="Имя">
+                        <input type="text" class="form__field edit-profile__name" value="" name="name" placeholder="Имя" minlength="2" required maxlength="40">
                     </p>
+                    <span class="form__field-error edit-profile__name-erorr"></span>
                     <p class="form__elem-block">
-                        <input type="text" class="form__field edit-profile__description" value="" name="description" placeholder="Описание">
+                        <input type="text" class="form__field edit-profile__description" value="" name="description" placeholder="Описание" minlength="2" required maxlength="200">
                     </p>
+                    <span class="form__field-error edit-profile__description-erorr"></span>
                     <p class="form__elem-block">
                         <button type="submit" class="form__button">Сохранить</button>
                     </p>
@@ -80,13 +82,15 @@
                 <h2 class="popup__header">Новое место</h2>
                 <form action="/" name="add-place" class="form add-place__form">
                     <p class="form__elem-block">
-                        <input type="text" class="form__field add-place__name" value="" name="name" placeholder="Название">
+                        <input type="text" class="form__field add-place__name" value="" name="name" placeholder="Название" required minlength="2" maxlength="30">
                     </p>
+                    <span class="form__field-error add-place__name-erorr"></span>
                     <p class="form__elem-block">
-                        <input type="text" class="form__field add-place__img" value="" name="img" placeholder="Ссылка на картинку">
+                        <input class="form__field add-place__img" value="" name="img" placeholder="Ссылка на картинку" required type="url">
                     </p>
+                    <span class="form__field-error add-place__img-erorr"></span>
                     <p class="form__elem-block">
-                        <button type="submit" class="form__button">Создать</button>
+                        <button type="submit" class="form__button form__button_disactive" disabled>Создать</button>
                     </p>
                 </form>
             </div>

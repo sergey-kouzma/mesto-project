@@ -1,3 +1,17 @@
+function showEror(messageElement, erorrMessage, button) {
+    messageElement.textContent = erorrMessage;
+    button.classList.add("form__button_disactive");
+    button.setAttribute("disabled", "disabled");
+}
+
+function hideEror(messageElement, button, chceck) {
+    messageElement.textContent = "";
+    if (chceck) {
+        button.classList.remove("form__button_disactive");
+        button.removeAttribute("disabled");
+    }
+}
+
 const closeButtons = document.querySelectorAll('.popup__close');
 
 for (let closeButton of closeButtons) {
@@ -13,6 +27,17 @@ function addCloseButtonEvent(closeButton) {
 
 function openPopup(popup) {
     popup.classList.add("popup_opened");
+    document.addEventListener("click", function(event) {
+        if (event.target == popup) {
+            closePopup(popup);
+        }
+    });
+    
+    document.addEventListener("keyup", function(event) {
+        if (event.key == "Escape") {
+            closePopup(popup);
+        }
+    });
 }
 
 function closePopup (popup) {
@@ -117,7 +142,51 @@ const buttonAddPlace = document.querySelector(".profile__plus");
 const placeFieldImg = popupAddPlace.querySelector(".add-place__img")
 const placeFieldName = popupAddPlace.querySelector(".add-place__name");
 const formAddPlace = popupAddPlace.querySelector(".add-place__form");
+const placeFieldNameErorr = popupAddPlace.querySelector(".add-place__name-erorr");
+const placeFieldImgErorr = popupAddPlace.querySelector(".add-place__img-erorr");
+const placeFieldButton = popupAddPlace.querySelector(".form__button");
+let placeFieldNameCheck = false;
+let placeFieldImgCheck = false;
 addEventsToPlaceForm();
+// if (!formInput.validity.valid) {
+
+// }
+
+placeFieldImg.addEventListener("keyup", function() {
+    if (!placeFieldImg.validity.valid) {
+        if (placeFieldImg.value.length === 0) {
+            showEror(placeFieldImgErorr, "Вы пропустили это поле.", placeFieldButton);
+            placeFieldImgCheck = false;
+        }
+        else {
+            showEror(placeFieldImgErorr, "Введите адрес картинки.", placeFieldButton);
+            placeFieldImgCheck = false;
+        }
+    }
+    else {
+        hideEror(placeFieldImgErorr, placeFieldButton, placeFieldNameCheck);
+        placeFieldImgCheck = true;
+    }
+});
+
+placeFieldName.addEventListener("keyup", function() {
+    
+    switch (placeFieldName.value.length) {
+        case 0:
+            showEror(placeFieldNameErorr, "Вы пропустили это поле.", placeFieldButton);
+            placeFieldNameCheck = false;
+            break;
+        case 1:
+            showEror(placeFieldNameErorr, "Минимальное размер поля: 2, количество символов сейчас: 1", placeFieldButton);
+            placeFieldNameCheck = false;
+            break;
+    
+        default:
+            hideEror(placeFieldNameErorr, placeFieldButton, placeFieldImgCheck);
+            placeFieldNameCheck = true;
+            break;
+    }
+})
 
 buttonAddPlace.addEventListener("click", function () {
     openPopup(popupAddPlace);    
@@ -131,7 +200,7 @@ function addEventsToPlaceForm() {
             link: placeFieldImg.value
         });
         formAddPlace.reset();
-        closePopup(popupAddPlace);
+            closePopup(popupAddPlace);
     });
 }
 
@@ -142,11 +211,49 @@ const buttonProfileEdit = document.querySelector(".profile__edit-button");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 
+profileName.addEventListener("keypress", function (){
 
-const formProfileEdit = popupProfileEdit.querySelector(".edit-profile__form")
+})
+
+const formProfileEdit = popupProfileEdit.querySelector(".edit-profile__form");
 const fieldProfileName = popupProfileEdit.querySelector(".edit-profile__name");
-const fieldProfileDescription= popupProfileEdit.querySelector(".edit-profile__description");
-addEventsToProfileForm();
+const fieldProfileDescription = popupProfileEdit.querySelector(".edit-profile__description");
+const editProfileNameErorr = formProfileEdit.querySelector(".edit-profile__name-erorr");
+const editProfileDescriptionErorr = formProfileEdit.querySelector(".edit-profile__description-erorr");
+const editProfileButton = formProfileEdit.querySelector(".form__button");
+let formProfileDescriptionCheck = true;
+let formProfileNameCheck = true;
+
+fieldProfileName.addEventListener("keyup", function() {
+    switch (fieldProfileName.value.length) {
+        case 0:
+            showEror(editProfileNameErorr, "Вы пропустили это поле.", editProfileButton);
+            //console.log(fieldProfileName.value.length);;
+            break;
+        case 1:
+            showEror(editProfileNameErorr, "Минимальное размер поля: 2, количество символов сейчас: 1", editProfileButton)
+            break;
+    
+        default:
+            hideEror(editProfileNameErorr, editProfileButton, formProfileDescriptionCheck);
+            break;
+    }
+});
+
+fieldProfileDescription.addEventListener("keyup", function() {
+    switch (fieldProfileDescription.value.length) {
+        case 0:
+            showEror(editProfileDescriptionErorr, "Вы пропустили это поле.", editProfileButton);
+            break;
+        case 1:
+            showEror(editProfileDescriptionErorr, "Минимальное размер поля: 2, количество символов сейчас: 1", editProfileButton);
+            break;
+    
+        default:
+            hideEror(editProfileDescriptionErorr, editProfileButton, formProfileNameCheck);
+            break;
+    }
+});
 
 buttonProfileEdit.addEventListener("click", function () {
     setFieldsToEditProfileForm(); // вынос кода в отдельный метод делает его более читаемым. Согласно рекомендациям Боба Мартина Чистый Код
@@ -166,3 +273,7 @@ function addEventsToProfileForm() {
         closePopup (popupProfileEdit);
     });
 }
+addEventsToProfileForm();
+
+
+
