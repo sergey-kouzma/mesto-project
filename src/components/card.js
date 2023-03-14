@@ -1,3 +1,5 @@
+import { openPopup } from "./modal.js"
+
 // Часть, которая относится к карточке
 // Оставил здесь, а не вверху файла, чтобы легче было потом выносить в отдельный файл, когда такая задача будет
 const cardsContainer = document.querySelector(".elements");
@@ -9,7 +11,6 @@ const bigImgText = popupWithBigImage.querySelector(".full-picture__text");
 
 
 function addCard(cardInitData) {
-  console.log('addCard');
   const cardElement = createCard(cardInitData);
   renderCard(cardElement);
 }
@@ -24,7 +25,6 @@ function createCard(cardInitData) {
   const title = cardInitData.title;
   const link = cardInitData.link;
   const cardElement = cardTemplate.cloneNode(true);
-  console.log(cardElement);
   const cardImg = cardElement.querySelector(".card__img");
   const blockName = cardElement.querySelector(".card__header");
   const cardLike = cardElement.querySelector(".card__like");
