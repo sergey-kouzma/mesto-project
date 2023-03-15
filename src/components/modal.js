@@ -15,20 +15,27 @@ function addCloseButtonEvent(closeButton) {
 
 function openPopup(popup) {
     popup.classList.add("popup_opened");
-    document.addEventListener("click", function (event) {
-        if (event.target == popup) {
-            closePopup(popup);
-        }
-    });
-
-    document.addEventListener("keyup", function (event) {
-        if (event.key == "Escape") {
-            closePopup(popup);
-        }
-    });
+    document.addEventListener("mousedown", closeByOverlay);
+    document.addEventListener("keyup", closeByEsc);
 }
+
+function closeByEsc(event) {
+    if (event.key === "Escape") {
+      const openedPopup = document.querySelector('.popup_opened');
+      closePopup(openedPopup); 
+    }
+} 
+
+function closeByOverlay(event) {
+    const openedPopup = document.querySelector('.popup_opened');
+    if (event.target == openedPopup) {
+        closePopup(openedPopup);
+    }
+} 
 
 function closePopup(popup) {
     popup.classList.remove("popup_opened");
+    document.addEventListener("mousedown", closeByOverlay);
+    document.addEventListener("keyup", closeByEsc);
 }
 export { openPopup, closePopup }

@@ -26,41 +26,30 @@ function chceckButton(form, submitButtonSelectorton, inputSelector, submitButton
     }
 }
 
+function isValid(inputElement, errorElement) {
+    if (inputElement.validity.patternMismatch) {
+        inputElement.setCustomValidity(inputElement.dataset.errorMessage);
+    }
+    else {
+        inputElement.setCustomValidity("");
+    }
+
+    if (!inputElement.validity.valid) {
+        showEror(errorElement, inputElement.validationMessage);
+    }
+    else {
+        hideEror(errorElement);
+    }
+}
+
 export function enableValidation(settings) {
     const forms = document.querySelectorAll(settings.formSelector);
     forms.forEach(function (formElement) {
         const inputs = formElement.querySelectorAll(settings.inputSelector);
-        const button = formElement.querySelector(settings.submitButtonSelector);
         inputs.forEach(function (inputElement) {
             const erorr = inputElement.parentNode.querySelector(settings.errorClass);
             inputElement.addEventListener("keyup", function () {
-                if (!inputElement.classList.contains(settings.inputURLSelector)) {
-                    switch (inputElement.value.length) {
-                        case 0:
-                            showEror(erorr, "Вы пропустили это поле.");
-                            break;
-                        case 1:
-                            showEror(erorr, "Минимальное размер поля: 2, количество символов сейчас: 1");
-                            break;
-
-                        default:
-                            hideEror(erorr);
-                            break;
-                    }
-                }
-                else {
-                    if (!inputElement.validity.valid) {
-                        if (inputElement.value.length == 0) {
-                            showEror(erorr, "Вы пропустили это поле.");
-                        }
-                        else {
-                            showEror(erorr, "Введите адрес картинки.");
-                        }
-                    }
-                    else {
-                        hideEror(erorr);
-                    }
-                }
+                isValid(inputElement, erorr);
                 chceckButton(formElement, settings.submitButtonSelector, settings.inputSelector, settings.inactiveButtonSelector);
             });
 

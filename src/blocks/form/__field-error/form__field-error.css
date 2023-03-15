@@ -1,7 +1,9 @@
 .form__field-error {
+    display: block;
     margin-top: 5px; 
     color: #f00;
     font-weight: 400;
     font-size: 12px;
     line-height: 15px;
+    height: 34px;
 }

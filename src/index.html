@@ -59,13 +59,16 @@
                 <form action="/" name="edit-profile" class="form edit-profile__form">
                     <p class="form__elem-block">
                         <input type="text" class="form__field edit-profile__name" value="" name="name" placeholder="Имя"
-                            minlength="2" required maxlength="40">
+                            minlength="2" required maxlength="40" pattern="^[a-zA-Zа-яА-Я \-0-9]+$"
+                            data-error-message="Разрешены только буквы, цифры, дефисы, пробелы.">
                         <span class="form__field-error edit-profile__name-erorr"></span>
                     </p>
 
                     <p class="form__elem-block">
                         <input type="text" class="form__field edit-profile__description" value="" name="description"
-                            placeholder="Описание" minlength="2" required maxlength="200">
+                            placeholder="Описание" minlength="2" required maxlength="200"
+                            pattern="^[a-zA-Zа-яА-Я \-0-9]+$"
+                            data-error-message="Разрешены только буквы, цифры, дефисы, пробелы.">
                         <span class="form__field-error edit-profile__description-erorr"></span>
                     </p>
 
@@ -86,7 +89,9 @@
                     <form action="/" name="add-place" class="form add-place__form">
                         <p class="form__elem-block">
                             <input type="text" class="form__field add-place__name" value="" name="name"
-                                placeholder="Название" required minlength="2" maxlength="30">
+                                placeholder="Название" required minlength="2" maxlength="30"
+                                pattern="^[a-zA-Zа-яА-Я \-0-9]+$"
+                                data-error-message="Разрешены только буквы, цифры, дефисы, пробелы.">
                             <span class="form__field-error add-place__name-erorr"></span>
                         </p>
                         <p class="form__elem-block">
