@@ -1,14 +1,19 @@
 import { openPopup, closePopup } from "./modal.js"
+import {updateProfileServerData, getProfileInfoFromServer} from "./api"
 
 const popupProfileEdit = document.querySelector('.popup_profile-edit');
 const buttonProfileEdit = document.querySelector(".profile__edit-button");
 
+const profile = document.querySelector(".profile");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
+const profileAvatar = document.querySelector(".profile__avatar");
+
 
 const formProfileEdit = popupProfileEdit.querySelector(".edit-profile__form");
 const fieldProfileName = popupProfileEdit.querySelector(".edit-profile__name");
 const fieldProfileDescription = popupProfileEdit.querySelector(".edit-profile__description");
+const buttonProfileSave = popupProfileEdit.querySelector(".form__button");
 
 function setFieldsToEditProfileForm() {
     fieldProfileName.value = profileName.textContent;
@@ -25,8 +30,29 @@ function addEventsToProfileForm() {
         event.preventDefault();
         profileName.textContent = fieldProfileName.value;
         profileDescription.textContent = fieldProfileDescription.value;
-        closePopup(popupProfileEdit);
+        buttonProfileSave.textContent = "Сохранение...";
+        updateProfileServerData(fieldProfileName.value, fieldProfileDescription.value).then(() => {
+            buttonProfileSave.textContent = "Сохранить";
+            closePopup(popupProfileEdit);
+        });
+        
     });
 }
 
-export { addEventsToProfileForm };
+
+function setProfileInfoFromServer() {
+    return getProfileInfoFromServer().then((profileData) => {
+        profileName.textContent = profileData.name;
+        profileDescription.textContent = profileData.about;
+        profileAvatar.setAttribute("src", profileData.avatar);
+        profileAvatar.setAttribute("alt", profileData.name);
+        profile.dataset.id = profileData._id;
+        return profileData;
+    });
+}
+
+
+
+
+
+export { addEventsToProfileForm, setProfileInfoFromServer };

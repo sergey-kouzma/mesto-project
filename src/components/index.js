@@ -1,15 +1,20 @@
 import './../pages/index.css';
-import { initialCards } from "./cards-list"
-import { initCardsList } from "./card"
+import {getInitialCards} from "./api";
+import { setInitialCards } from "./card"
 import { enableValidation } from "./validate";
-import { addEventsToProfileForm } from "./profile"
+import { addEventsToProfileForm, setProfileInfoFromServer } from "./profile"
 import { addEventsToPlaceForm } from "./place"
+import { addEventsToAvatarForm } from "./avatar"
 
-initCardsList(initialCards);
+setProfileInfoFromServer().then(() => getInitialCards().then((initialCards) => setInitialCards(initialCards)));
+
+
+
 
 addEventsToProfileForm();
 
 addEventsToPlaceForm();
+addEventsToAvatarForm();
 
 enableValidation({
     formSelector: '.form',
@@ -19,4 +24,6 @@ enableValidation({
     inactiveButtonSelector: 'form__button_disactive',
     errorClass: '.form__field-error'
 });
+
+
 
