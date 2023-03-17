@@ -1,108 +1,83 @@
+const config = {
+    baseUrl: 'https://nomoreparties.co/v1/plus-cohort-20',
+    headers: {
+      authorization: '80e9e4a9-cb76-4d3a-873d-dfa824d8742f',
+      'Content-Type': 'application/json'
+    }
+  }
+
+ function getResponseData(res) {
+    if (!res.ok) {
+        return Promise.reject(`Ошибка: ${res.status}`); 
+    }
+    return res.json();
+} 
+
 export const getInitialCards = () => {
-    return fetch('https://nomoreparties.co/v1/plus-cohort-20/cards', {
-        headers: {
-            authorization: '80e9e4a9-cb76-4d3a-873d-dfa824d8742f'
-        }
+    return fetch(config.baseUrl + '/cards', {
+        headers: config.headers
     })
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-        });
+        .then(getResponseData);
 }
 
 export const removeCardFromServer = (cardId) => {
-    return fetch('https://nomoreparties.co/v1/plus-cohort-20/cards/' + cardId, {
+    return fetch(config.baseUrl + '/cards/' + cardId, {
         method: 'DELETE',
-        headers: {
-            authorization: '80e9e4a9-cb76-4d3a-873d-dfa824d8742f',
-            'Content-Type': 'application/json'
-        }
-    });
+        headers: config.headers
+    }).then(getResponseData);
 }
 
 export const addCardToServer = (cardInitData) => {
     const title = cardInitData.title;
     const link = cardInitData.link;
-    return fetch('https://nomoreparties.co/v1/plus-cohort-20/cards', {
+    return fetch(config.baseUrl + '/cards', {
         method: 'POST',
-        headers: {
-            authorization: '80e9e4a9-cb76-4d3a-873d-dfa824d8742f',
-            'Content-Type': 'application/json'
-        },
+        headers: config.headers,
         body: JSON.stringify({
             name: title,
             link: link
         })
-    }).then(res => {
-        if (res.ok) {
-            return res.json();
-        }
-    });
+    }).then(getResponseData);
 }
 
 export const updateProfileServerData = (name, description) => {
-    return fetch('https://nomoreparties.co/v1/plus-cohort-20/users/me', {
+    return fetch(config.baseUrl + '/users/me', {
         method: 'PATCH',
-        headers: {
-            authorization: '80e9e4a9-cb76-4d3a-873d-dfa824d8742f',
-            'Content-Type': 'application/json'
-        },
+        headers: config.headers,
         body: JSON.stringify({
             name: name,
             about: description
-        })
+        }).then(getResponseData)
     });
 }
 
 export const getProfileInfoFromServer = () => {
-    return fetch('https://nomoreparties.co/v1/plus-cohort-20/users/me', {
-        headers: {
-            authorization: '80e9e4a9-cb76-4d3a-873d-dfa824d8742f'
-        }
-    }).then(res => {
-        if (res.ok) {
-            return res.json();
-        }
-    });
+    return fetch(config.baseUrl + '/users/me', {
+        headers: config.headers
+    }).then(getResponseData);
 }
 
 export const sendLikeToCardToServer = (cardId) => {
-    return fetch('https://nomoreparties.co/v1/plus-cohort-20/cards/likes/' + cardId, {
+    return fetch(config.baseUrl + '/cards/likes/' + cardId, {
         method: 'PUT',
-        headers: {
-            authorization: '80e9e4a9-cb76-4d3a-873d-dfa824d8742f'
-        }
-    }).then(res => {
-        if (res.ok) {
-            return res.json();
-        }
-    });
+        headers: config.headers
+    }).then(getResponseData);
 }
 
 export const sendDisLikeToCardToServer = (cardId) => {
-    return fetch('https://nomoreparties.co/v1/plus-cohort-20/cards/likes/' + cardId, {
+    return fetch(config.baseUrl + '/cards/likes/' + cardId, {
         method: 'DELETE',
-        headers: {
-            authorization: '80e9e4a9-cb76-4d3a-873d-dfa824d8742f'
-        }
-    }).then(res => {
-        if (res.ok) {
-            return res.json();
-        }
-    });
+        headers: config.headers
+    }).then(getResponseData);
 }
 
 
 export const updateAvatarAtServer = (avatar) => {
-    return fetch('https://nomoreparties.co/v1/plus-cohort-20/users/me/avatar', {
+    return fetch(config.baseUrl + '/users/me/avatar', {
         method: 'PATCH',
-        headers: {
-            authorization: '80e9e4a9-cb76-4d3a-873d-dfa824d8742f',
-            'Content-Type': 'application/json'
-        },
+        headers: config.headers,
         body: JSON.stringify({
             avatar: avatar
         })
-    });
+    }).then(getResponseData);
 }

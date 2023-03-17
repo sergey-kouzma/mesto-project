@@ -1,15 +1,17 @@
-function showEror(messageElement, erorrMessage) {
+function showEror(messageElement, erorrMessage, inputElement, inputErrorClassName) {
     messageElement.textContent = erorrMessage;
+    inputElement.classList.add(inputErrorClassName);
 }
 
-function hideEror(messageElement) {
+function hideEror(messageElement, inputElement, inputErrorClassName) {
     messageElement.textContent = "";
+    inputElement.classList.remove(inputErrorClassName);
 }
 
-function chceckButton(form, submitButtonSelectorton, inputSelector, submitButtonSelectorDisabled) {
+function chceckButton(form, button, inputs, submitButtonSelectorDisabled) {
     let isInvalid = false;
-    const button = form.querySelector(submitButtonSelectorton);
-    const inputs = form.querySelectorAll(inputSelector);
+    //const button = form.querySelector(submitButtonSelectorton);
+    // const inputs = form.querySelectorAll(inputSelector);
 
     inputs.forEach(function (inputElement) {
         if (!inputElement.validity.valid) {
@@ -26,7 +28,7 @@ function chceckButton(form, submitButtonSelectorton, inputSelector, submitButton
     }
 }
 
-function isValid(inputElement, errorElement) {
+function isValid(inputElement, errorElement, inputErrorClassName) {
     if (inputElement.validity.patternMismatch) {
         inputElement.setCustomValidity(inputElement.dataset.errorMessage);
     }
@@ -35,10 +37,10 @@ function isValid(inputElement, errorElement) {
     }
 
     if (!inputElement.validity.valid) {
-        showEror(errorElement, inputElement.validationMessage);
+        showEror(errorElement, inputElement.validationMessage, inputElement, inputErrorClassName);
     }
     else {
-        hideEror(errorElement);
+        hideEror(errorElement, inputElement, inputErrorClassName);
     }
 }
 
@@ -47,10 +49,15 @@ export function enableValidation(settings) {
     forms.forEach(function (formElement) {
         const inputs = formElement.querySelectorAll(settings.inputSelector);
         inputs.forEach(function (inputElement) {
-            const erorr = inputElement.parentNode.querySelector(settings.errorClass);
+            const erorr = inputElement.closest(settings.inputBlockSelector).querySelector(settings.errorClass);
             inputElement.addEventListener("keyup", function () {
-                isValid(inputElement, erorr);
-                chceckButton(formElement, settings.submitButtonSelector, settings.inputSelector, settings.inactiveButtonSelector);
+                isValid(inputElement, erorr, settings.inputErrorClassName);
+                chceckButton(
+                    formElement, 
+                    formElement.querySelector(settings.submitButtonSelector), 
+                    formElement.querySelectorAll(settings.inputSelector), 
+                    settings.inactiveButtonSelector
+                );
             });
 
         })

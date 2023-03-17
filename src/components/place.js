@@ -32,11 +32,18 @@ function addEventsToPlaceForm() {
                 likes: card.likes.length,
                 id: card._id,
                 ownerId: card.owner._id,
-                hasOwnLike: false
-              });
-            buttonSaveForm.textContent = "Сохранить";
+                hasOwnLike: false,
+                isOwnCard: true
+            });
+            
             formAddPlace.reset();
             closePopup(popupAddPlace);
+        }).catch((err) => {
+            console.log(err); // выводим ошибку в консоль
+        }).finally(() => {
+            buttonSaveForm.textContent = "Сохранить";
+            buttonSaveForm.classList.add('form__button_disactive');
+            buttonSaveForm.setAttribute("disabled", "disabled");
         });
         // formAddPlace.reset();
         // closePopup(popupAddPlace);

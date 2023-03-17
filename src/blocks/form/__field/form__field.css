@@ -9,7 +9,5 @@
     margin: 0px;
 }
 
-.form__field:invalid {
-    border-bottom: 1px solid #f00;
-}
+
 

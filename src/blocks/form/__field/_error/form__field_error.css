@@ -1,0 +1,8 @@
+.form__field_error {
+    border-bottom: 1px solid #f00;
+}
+
+.form__field_error:focus {
+    outline: none !important;
+    border: 1px solid #f00;
+}

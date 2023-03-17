@@ -15,7 +15,7 @@ function addCloseButtonEvent(closeButton) {
 
 function openPopup(popup) {
     popup.classList.add("popup_opened");
-    document.addEventListener("mousedown", closeByOverlay);
+    popup.addEventListener("mousedown", closeByOverlay);
     document.addEventListener("keyup", closeByEsc);
 }
 
@@ -27,15 +27,17 @@ function closeByEsc(event) {
 } 
 
 function closeByOverlay(event) {
-    const openedPopup = document.querySelector('.popup_opened');
-    if (event.target == openedPopup) {
-        closePopup(openedPopup);
+    // const openedPopup = document.querySelector('.popup_opened');
+    // if (event.target == openedPopup) {
+    //     closePopup(openedPopup);
+    // }
+    if (event.target === event.currentTarget) {
+        closePopup(event.target);
     }
 } 
 
 function closePopup(popup) {
     popup.classList.remove("popup_opened");
-    document.addEventListener("mousedown", closeByOverlay);
     document.addEventListener("keyup", closeByEsc);
 }
 export { openPopup, closePopup }

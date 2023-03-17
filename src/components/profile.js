@@ -1,5 +1,5 @@
 import { openPopup, closePopup } from "./modal.js"
-import {updateProfileServerData, getProfileInfoFromServer} from "./api"
+import { updateProfileServerData } from "./api"
 
 const popupProfileEdit = document.querySelector('.popup_profile-edit');
 const buttonProfileEdit = document.querySelector(".profile__edit-button");
@@ -7,7 +7,7 @@ const buttonProfileEdit = document.querySelector(".profile__edit-button");
 const profile = document.querySelector(".profile");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
-const profileAvatar = document.querySelector(".profile__avatar");
+const profileAvatar = document.querySelector(".profile__avatar-img");
 
 
 const formProfileEdit = popupProfileEdit.querySelector(".edit-profile__form");
@@ -28,31 +28,31 @@ buttonProfileEdit.addEventListener("click", function () {
 function addEventsToProfileForm() {
     formProfileEdit.addEventListener("submit", function (event) {
         event.preventDefault();
-        profileName.textContent = fieldProfileName.value;
-        profileDescription.textContent = fieldProfileDescription.value;
+
         buttonProfileSave.textContent = "Сохранение...";
         updateProfileServerData(fieldProfileName.value, fieldProfileDescription.value).then(() => {
-            buttonProfileSave.textContent = "Сохранить";
+            profileName.textContent = fieldProfileName.value;
+            profileDescription.textContent = fieldProfileDescription.value;
             closePopup(popupProfileEdit);
+        }).catch((err) => {
+            console.log(err); // выводим ошибку в консоль
+        }).finally(() => {
+            buttonProfileSave.textContent = "Сохранить";
         });
-        
+
     });
 }
 
 
-function setProfileInfoFromServer() {
-    return getProfileInfoFromServer().then((profileData) => {
-        profileName.textContent = profileData.name;
-        profileDescription.textContent = profileData.about;
-        profileAvatar.setAttribute("src", profileData.avatar);
-        profileAvatar.setAttribute("alt", profileData.name);
-        profile.dataset.id = profileData._id;
-        return profileData;
-    });
+function setProfileData(profileData) {
+    profileName.textContent = profileData.name;
+    profileDescription.textContent = profileData.about;
+    profileAvatar.setAttribute("src", profileData.avatar);
+    profileAvatar.setAttribute("alt", profileData.name);
 }
 
 
 
 
 
-export { addEventsToProfileForm, setProfileInfoFromServer };
+export { addEventsToProfileForm, setProfileData };

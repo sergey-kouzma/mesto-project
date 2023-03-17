@@ -1,5 +1,5 @@
 import { openPopup } from "./modal.js"
-import { removeCardFromServer, addCardToServer, sendLikeToCardToServer, sendDisLikeToCardToServer } from "./api"
+import { removeCardFromServer, sendLikeToCardToServer, sendDisLikeToCardToServer } from "./api"
 
 // Часть, которая относится к карточке
 // Оставил здесь, а не вверху файла, чтобы легче было потом выносить в отдельный файл, когда такая задача будет
@@ -11,11 +11,6 @@ const popupWithBigImage = document.querySelector('.popup_big-image');
 const bigImg = popupWithBigImage.querySelector(".full-picture__img");
 const bigImgText = popupWithBigImage.querySelector(".full-picture__text");
 
-
-// function addCard(cardInitData) {
-//   addCardToServer(cardInitData);
-//   addCardToSite(cardInitData);
-// }
 
 function addCardToSite(cardInitData) {
   const cardElement = createCard(cardInitData);
@@ -44,35 +39,44 @@ function createCard(cardInitData) {
 
 
   cardDelete.addEventListener("click", function () {
-    const cardElement = cardDelete.closest('.card');
-    removeCardFromServer(cardElement.dataset.id);
-    cardElement.remove();
+    // const cardElement = cardDelete.closest('.card');
+    removeCardFromServer(cardInitData.id).then(() => {
+      cardElement.remove();
+    }).catch((err) => {
+      console.log(err); // выводим ошибку в консоль
+    });
+
   });
   cardImg.addEventListener("click", () => openBigImage({ title, link }));
   if (cardInitData.hasOwnLike) {
     cardLike.classList.add("card__like_active");
   }
   cardLike.addEventListener("click", function () {
-    const cardElement = cardDelete.closest('.card');
     if (cardLike.classList.contains("card__like_active")) {
-      sendDisLikeToCardToServer(cardElement.dataset.id).then(card => {
+      sendDisLikeToCardToServer(cardInitData.id).then(card => {
         cardLikesAmount.textContent = card.likes.length;
+        cardLike.classList.toggle("card__like_active");
+      }).catch((err) => {
+        console.log(err); // выводим ошибку в консоль
       });
     }
     else {
-      sendLikeToCardToServer(cardElement.dataset.id).then(card => {
+      sendLikeToCardToServer(cardInitData.id).then(card => {
         cardLikesAmount.textContent = card.likes.length;
+        cardLike.classList.toggle("card__like_active");
+      }).catch((err) => {
+        console.log(err); // выводим ошибку в консоль
       });
     }
-    cardLike.classList.toggle("card__like_active");
+    
   });
 
 
   if (cardInitData.id) {
-    cardElement.dataset.id = cardInitData.id;
+    //cardElement.dataset.id = cardInitData.id;
     cardLikesAmount.textContent = cardInitData.likes;
 
-    if (cardInitData.ownerId != profile.dataset.id) {
+    if (!cardInitData.isOwnCard) {
       cardDelete.remove();
     }
   }
@@ -86,8 +90,8 @@ function renderCard(cardElement) {
 }
 
 
-function setInitialCards(cardsList) {
-  const profileId = profile.dataset.id;
+function setInitialCards(cardsList, currentUserId) {
+  // const profileId = profile.dataset.id;
   cardsList.forEach(function (card) {
     addCardToSite({
       title: card.name,
@@ -95,7 +99,9 @@ function setInitialCards(cardsList) {
       likes: card.likes.length,
       id: card._id,
       ownerId: card.owner._id,
-      hasOwnLike: card.likes.find(item => item._id === profileId) != undefined
+      // hasOwnLike: card.likes.find(item => item._id === profileId) != undefined
+      hasOwnLike: card.likes.find(item => item._id === currentUserId) != undefined,
+      isOwnCard: currentUserId === card.owner._id
     });
   });
 }
