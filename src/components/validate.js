@@ -8,15 +8,12 @@ function hideEror(messageElement, inputElement, inputErrorClassName) {
     inputElement.classList.remove(inputErrorClassName);
 }
 
-function chceckButton(form, button, inputs, submitButtonSelectorDisabled) {
-    let isInvalid = false;
+function chceckButton(button, inputs, submitButtonSelectorDisabled) {
+    
     //const button = form.querySelector(submitButtonSelectorton);
     // const inputs = form.querySelectorAll(inputSelector);
-
-    inputs.forEach(function (inputElement) {
-        if (!inputElement.validity.valid) {
-            isInvalid = true;
-        }
+    const isInvalid = Array.prototype.slice.call(inputs).some(function (inputElement) {
+        return !inputElement.validity.valid;
     });
     if (!isInvalid) {
         button.classList.remove(submitButtonSelectorDisabled);
@@ -53,9 +50,8 @@ export function enableValidation(settings) {
             inputElement.addEventListener("keyup", function () {
                 isValid(inputElement, erorr, settings.inputErrorClassName);
                 chceckButton(
-                    formElement, 
                     formElement.querySelector(settings.submitButtonSelector), 
-                    formElement.querySelectorAll(settings.inputSelector), 
+                    inputs, 
                     settings.inactiveButtonSelector
                 );
             });

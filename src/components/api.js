@@ -47,8 +47,8 @@ export const updateProfileServerData = (name, description) => {
         body: JSON.stringify({
             name: name,
             about: description
-        }).then(getResponseData)
-    });
+        })
+    }).then(getResponseData);
 }
 
 export const getProfileInfoFromServer = () => {

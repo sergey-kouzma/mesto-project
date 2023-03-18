@@ -1,9 +1,13 @@
 
 
 const closeButtons = document.querySelectorAll('.popup__close');
+const popups = document.querySelectorAll('.popup');
 
 for (let closeButton of closeButtons) {
     addCloseButtonEvent(closeButton);
+}
+for (let popup of popups) {
+    popup.addEventListener("mousedown", closeByOverlay);
 }
 
 function addCloseButtonEvent(closeButton) {
@@ -15,7 +19,6 @@ function addCloseButtonEvent(closeButton) {
 
 function openPopup(popup) {
     popup.classList.add("popup_opened");
-    popup.addEventListener("mousedown", closeByOverlay);
     document.addEventListener("keyup", closeByEsc);
 }
 
@@ -38,6 +41,6 @@ function closeByOverlay(event) {
 
 function closePopup(popup) {
     popup.classList.remove("popup_opened");
-    document.addEventListener("keyup", closeByEsc);
+    document.removeEventListener("keyup", closeByEsc);
 }
 export { openPopup, closePopup }
