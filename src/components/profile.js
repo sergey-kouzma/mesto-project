@@ -1,5 +1,7 @@
 import { openPopup, closePopup } from "./modal.js"
-import { updateProfileServerData } from "./api"
+// import { updateProfileServerData } from "./api"
+import { Api } from "./Api.js";
+import { apiConfig } from "./consts/api-consts.js";
 
 const popupProfileEdit = document.querySelector('.popup_profile-edit');
 const buttonProfileEdit = document.querySelector(".profile__edit-button");
@@ -30,7 +32,7 @@ function addEventsToProfileForm() {
         event.preventDefault();
 
         buttonProfileSave.textContent = "Сохранение...";
-        updateProfileServerData(fieldProfileName.value, fieldProfileDescription.value).then(() => {
+        (new Api(apiConfig)).updateProfileServerData(fieldProfileName.value, fieldProfileDescription.value).then(() => {
             profileName.textContent = fieldProfileName.value;
             profileDescription.textContent = fieldProfileDescription.value;
             closePopup(popupProfileEdit);
