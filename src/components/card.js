@@ -1,5 +1,7 @@
 import { openPopup } from "./modal.js"
-import { removeCardFromServer, sendLikeToCardToServer, sendDisLikeToCardToServer } from "./api"
+// import { removeCardFromServer, sendLikeToCardToServer, sendDisLikeToCardToServer } from "./api"
+import { Api } from "./Api.js";
+import { apiConfig } from "./consts/api-consts.js";
 
 // Часть, которая относится к карточке
 // Оставил здесь, а не вверху файла, чтобы легче было потом выносить в отдельный файл, когда такая задача будет
@@ -40,7 +42,7 @@ function createCard(cardInitData) {
 
   cardDelete.addEventListener("click", function () {
     // const cardElement = cardDelete.closest('.card');
-    removeCardFromServer(cardInitData.id).then(() => {
+    (new Api(apiConfig)).removeCardFromServer(cardInitData.id).then(() => {
       cardElement.remove();
     }).catch((err) => {
       console.log(err); // выводим ошибку в консоль
@@ -53,7 +55,7 @@ function createCard(cardInitData) {
   }
   cardLike.addEventListener("click", function () {
     if (cardLike.classList.contains("card__like_active")) {
-      sendDisLikeToCardToServer(cardInitData.id).then(card => {
+      (new Api(apiConfig)).sendDisLikeToCardToServer(cardInitData.id).then(card => {
         cardLikesAmount.textContent = card.likes.length;
         cardLike.classList.toggle("card__like_active");
       }).catch((err) => {
@@ -61,7 +63,7 @@ function createCard(cardInitData) {
       });
     }
     else {
-      sendLikeToCardToServer(cardInitData.id).then(card => {
+      (new Api(apiConfig)).sendLikeToCardToServer(cardInitData.id).then(card => {
         cardLikesAmount.textContent = card.likes.length;
         cardLike.classList.toggle("card__like_active");
       }).catch((err) => {
