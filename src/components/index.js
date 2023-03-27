@@ -6,11 +6,6 @@ import { addEventsToProfileForm, setProfileData } from "./profile"
 import { addEventsToPlaceForm } from "./place"
 import { addEventsToAvatarForm } from "./avatar"
 
-// setProfileInfoFromServer().then(() => getInitialCards().then((initialCards) => setInitialCards(initialCards))).catch((err) => {
-//     console.log(err); // выводим ошибку в консоль
-// });
-
-
 Promise.all([                 //в Promise.all передаем массив промисов которые нужно выполнить 
     getProfileInfoFromServer(),
     getInitialCards()])
