@@ -3,10 +3,12 @@ import './../pages/index.css';
 import { Api } from './Api';
 import { apiConfig } from './consts/api-consts';
 import { setInitialCards } from "./card"
-import { enableValidation } from "./validate";
+// import { enableValidation } from "./validate";
 import { addEventsToProfileForm, setProfileData } from "./profile"
 import { addEventsToPlaceForm } from "./place"
 import { addEventsToAvatarForm } from "./avatar"
+import { validationConfig, iditPopup } from "./consts/validation-consts";
+import FormValidation from './FormValidation';
 
 const api = new Api(apiConfig);
 Promise.all([                 //в Promise.all передаем массив промисов которые нужно выполнить 
@@ -20,6 +22,8 @@ Promise.all([                 //в Promise.all передаем массив п�
         console.log(err);
     });
 
+const profileFormValidation = new FormValidation(validationConfig, iditPopup);
+profileFormValidation.enableValidation();
 
 addEventsToProfileForm();
 
