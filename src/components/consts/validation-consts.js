@@ -9,6 +9,6 @@ const validationConfig = {
     errorClass: '.form__field-error'
 };
 
-const iditPopup = '.popup_profile-edit';
+const forms = document.querySelectorAll('.form')
 
-export { validationConfig, iditPopup }
+export { validationConfig, forms }

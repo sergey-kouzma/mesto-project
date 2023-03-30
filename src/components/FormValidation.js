@@ -5,8 +5,7 @@ export default class FormValidation {
         this._errorNotification = config.errorClass;
         this._inactiveButtonSelector = config.inactiveButtonSelector;
         this._inputBlockSelector = config.inputBlockSelector;
-        this._element = document.querySelector(anyPopup);
-        this._formElement = this._element.querySelector(this._config.formSelector)
+        this._formElement = anyPopup;
         this._inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
         this._buttonElement = this._formElement.querySelector(this._config.submitButtonSelector);
     }
@@ -60,6 +59,7 @@ export default class FormValidation {
 
     _setEventListeners() {
         this._toggleButtonState();
+        
         this._formElement.addEventListener("reset", () => {
             setTimeout(() => {
                 this._toggleButtonState();
