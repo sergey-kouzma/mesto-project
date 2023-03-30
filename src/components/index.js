@@ -3,7 +3,7 @@ import './../pages/index.css';
 import { Api } from './Api';
 import { apiConfig } from './consts/api-consts';
 import { setInitialCards } from "./card"
-import { enableValidation } from "./validate";
+// import { enableValidation } from "./validate";
 import { addEventsToProfileForm, setProfileData } from "./profile"
 import { addEventsToPlaceForm } from "./place"
 import { addEventsToAvatarForm } from "./avatar"
@@ -22,12 +22,11 @@ Promise.all([                 //в Promise.all передаем массив п�
         console.log(err);
     });
 
-// forms.forEach((form) => {
-//     const profileFormValidation = new FormValidation(validationConfig, form);
-//     profileFormValidation.enableValidation();
-// });
+forms.forEach((form) => {
+    const profileFormValidation = new FormValidation(validationConfig, form);
+    profileFormValidation.enableValidation();
+});
 
-enableValidation(validationConfig)
 addEventsToProfileForm();
 
 addEventsToPlaceForm();

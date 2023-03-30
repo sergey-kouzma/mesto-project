@@ -59,7 +59,7 @@ export default class FormValidation {
 
     _setEventListeners() {
         this._toggleButtonState();
-        
+
         this._formElement.addEventListener("reset", () => {
             setTimeout(() => {
                 this._toggleButtonState();
