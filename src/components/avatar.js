@@ -26,6 +26,7 @@ function addEventsToAvatarForm() {
         buttonAvatarSave.textContent = "Сохранение...";
         (new Api(apiConfig)).updateAvatarAtServer(fieldAvatar.value).then(() => {
             profileAvatar.setAttribute('src', fieldAvatar.value);
+            formAvatarEdit.reset();
             closePopup(popupAvatarEdit);
         }).catch((err) => {
             console.log(err); // выводим ошибку в консоль

@@ -3,10 +3,12 @@ import './../pages/index.css';
 import { Api } from './Api';
 import { apiConfig } from './consts/api-consts';
 import { setInitialCards } from "./card"
-import { enableValidation } from "./validate";
+// import { enableValidation } from "./validate";
 import { addEventsToProfileForm, setProfileData } from "./profile"
 import { addEventsToPlaceForm } from "./place"
 import { addEventsToAvatarForm } from "./avatar"
+import { validationConfig, forms } from "./consts/validation-consts";
+import FormValidation from './FormValidation';
 
 const api = new Api(apiConfig);
 Promise.all([                 //в Promise.all передаем массив промисов которые нужно выполнить 
@@ -20,22 +22,16 @@ Promise.all([                 //в Promise.all передаем массив п�
         console.log(err);
     });
 
+const forms = document.querySelectorAll('.form')
+forms.forEach((form) => {
+    const formValidation = new FormValidation(validationConfig, form);
+    formValidation.enableValidation();
+});
 
 addEventsToProfileForm();
 
 addEventsToPlaceForm();
 addEventsToAvatarForm();
-
-enableValidation({
-    formSelector: '.form',
-    inputSelector: '.form__field',
-    inputErrorClassName: 'form__field_error',
-    inputBlockSelector: '.form__elem-block',
-    inputURLSelector: "add-place__img",
-    submitButtonSelector: '.form__button',
-    inactiveButtonSelector: 'form__button_disactive',
-    errorClass: '.form__field-error'
-});
 
 
 
