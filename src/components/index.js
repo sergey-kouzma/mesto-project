@@ -22,9 +22,10 @@ Promise.all([                 //в Promise.all передаем массив п�
         console.log(err);
     });
 
+const forms = document.querySelectorAll('.form')
 forms.forEach((form) => {
-    const profileFormValidation = new FormValidation(validationConfig, form);
-    profileFormValidation.enableValidation();
+    const formValidation = new FormValidation(validationConfig, form);
+    formValidation.enableValidation();
 });
 
 addEventsToProfileForm();

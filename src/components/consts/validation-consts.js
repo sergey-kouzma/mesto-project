@@ -9,6 +9,6 @@ const validationConfig = {
     errorClass: '.form__field-error'
 };
 
-const forms = document.querySelectorAll('.form')
 
-export { validationConfig, forms }
+
+export { validationConfig }
