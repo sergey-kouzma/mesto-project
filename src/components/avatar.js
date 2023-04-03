@@ -1,6 +1,7 @@
 import { openPopup, closePopup } from "./modal.js"
-import { updateAvatarAtServer } from "./api"
-
+// import { updateAvatarAtServer } from "./api"
+import { Api } from "./Api.js";
+import { apiConfig } from "./consts/api-consts.js";
 const popupAvatarEdit = document.querySelector('.popup_avatar-edit');
 const profileAvatarBlock = document.querySelector('.profile__avatar');
 const profileAvatar = document.querySelector('.profile__avatar-img');
@@ -23,7 +24,7 @@ function addEventsToAvatarForm() {
     formAvatarEdit.addEventListener("submit", function (event) {
         event.preventDefault();
         buttonAvatarSave.textContent = "Сохранение...";
-        updateAvatarAtServer(fieldAvatar.value).then(() => {
+        (new Api(apiConfig)).updateAvatarAtServer(fieldAvatar.value).then(() => {
             profileAvatar.setAttribute('src', fieldAvatar.value);
             closePopup(popupAvatarEdit);
         }).catch((err) => {

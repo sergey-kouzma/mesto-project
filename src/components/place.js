@@ -1,6 +1,8 @@
 import { openPopup, closePopup } from "./modal.js"
-import { addCardToSite } from "./card"
-import { addCardToServer } from "./api.js";
+import { Card } from "./card"
+// import { addCardToServer } from "./api.js";
+import { Api } from "./Api.js";
+import { apiConfig } from "./consts/api-consts.js";
 
 const popupAddPlace = document.querySelector('.popup_place-add');
 const buttonAddPlace = document.querySelector(".profile__plus");
@@ -22,11 +24,11 @@ function addEventsToPlaceForm() {
         //     link: placeFieldImg.value
         // });
         buttonSaveForm.textContent = "Сохранение...";
-        addCardToServer({
+        (new Api(apiConfig)).addCardToServer({
             title: placeFieldName.value,
             link: placeFieldImg.value
         }).then((card) => {
-            addCardToSite({
+            (new Card()).addCardToSite({
                 title: card.name,
                 link: card.link,
                 likes: card.likes.length,
