@@ -1,21 +1,18 @@
 import { openPopup, closePopup } from "./modal.js"
-// import { updateProfileServerData } from "./api"
 import { Api } from "./Api.js";
 import { apiConfig } from "./consts/api-consts.js";
+import { profileName, profileDescription, profileAvatar } from './consts/const';
+import UserInfo from './UserInfo';
+import { renderLoading } from './utils/utils.js'
 
 const popupProfileEdit = document.querySelector('.popup_profile-edit');
 const buttonProfileEdit = document.querySelector(".profile__edit-button");
 
-const profile = document.querySelector(".profile");
-const profileName = document.querySelector(".profile__name");
-const profileDescription = document.querySelector(".profile__description");
-const profileAvatar = document.querySelector(".profile__avatar-img");
-
-
 const formProfileEdit = popupProfileEdit.querySelector(".edit-profile__form");
 const fieldProfileName = popupProfileEdit.querySelector(".edit-profile__name");
 const fieldProfileDescription = popupProfileEdit.querySelector(".edit-profile__description");
-const buttonProfileSave = popupProfileEdit.querySelector(".form__button");
+
+const userInfo = new UserInfo(profileName, profileDescription, profileAvatar);
 
 function setFieldsToEditProfileForm() {
     fieldProfileName.value = profileName.textContent;
@@ -27,34 +24,23 @@ buttonProfileEdit.addEventListener("click", function () {
     openPopup(popupProfileEdit);
 });
 
-function addEventsToProfileForm() {
-    formProfileEdit.addEventListener("submit", function (event) {
-        event.preventDefault();
 
-        buttonProfileSave.textContent = "Сохранение...";
-        (new Api(apiConfig)).updateProfileServerData(fieldProfileName.value, fieldProfileDescription.value).then(() => {
-            profileName.textContent = fieldProfileName.value;
-            profileDescription.textContent = fieldProfileDescription.value;
+
+const addEventsToProfileForm = () => {
+    formProfileEdit.addEventListener("submit", function (evt) {
+        evt.preventDefault();
+        renderLoading(evt, true);
+        (new Api(apiConfig)).updateProfileServerData(fieldProfileName.value, fieldProfileDescription.value)
+        .then((profileData) => {
+            userInfo.setUserInfo(profileData)
             closePopup(popupProfileEdit);
         }).catch((err) => {
             console.log(err); // выводим ошибку в консоль
         }).finally(() => {
-            buttonProfileSave.textContent = "Сохранить";
+            renderLoading(evt, false)
         });
 
     });
 }
 
-
-function setProfileData(profileData) {
-    profileName.textContent = profileData.name;
-    profileDescription.textContent = profileData.about;
-    profileAvatar.setAttribute("src", profileData.avatar);
-    profileAvatar.setAttribute("alt", profileData.name);
-}
-
-
-
-
-
-export { addEventsToProfileForm, setProfileData };
+export { addEventsToProfileForm };
