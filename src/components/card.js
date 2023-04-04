@@ -25,17 +25,14 @@ class Card {
   addCardToSite() {
     this._createCard();
     this._renderCard();
-
   }
 
-  /*
-  _openBigImage(imageData) {
+  _openBigImage() {
     bigImg.setAttribute("src", this._link);
     bigImg.setAttribute("alt", this._title);
     bigImgText.textContent = this._title;
     openPopup(popupWithBigImage);
   }
-  */
 
   _addRemoveListener() {
     this._cardDelete.addEventListener("click",  () =>  {
@@ -94,14 +91,7 @@ class Card {
     this._addRemoveListener();
 
 
-/*
-
-    cardImg.addEventListener("click", () => this._openBigImage({ title, link }));
-
-    
-
-    
- */
+    this._cardImg.addEventListener("click", () => this._openBigImage());
  
 
  
