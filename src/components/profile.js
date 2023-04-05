@@ -13,7 +13,8 @@ const fieldProfileDescription = popupProfileEdit.querySelector(".edit-profile__d
 
 const addEventsToEditButton = (userInfo) => {
     buttonProfileEdit.addEventListener("click", () => {
-        userInfo.getUserInfo()
+        fieldProfileName.value = userInfo.getUserInfo().userName
+        fieldProfileDescription.value = userInfo.getUserInfo().userInfo
         openPopup(popupProfileEdit);
     });
 }
