@@ -1,10 +1,8 @@
 import './../pages/index.css';
-// import { getInitialCards, getProfileInfoFromServer } from "./api";
 import { Api } from './Api';
 import { apiConfig } from './consts/api-consts';
 import { setInitialCards } from "./card"
-// import { enableValidation } from "./validate";
-import { addEventsToProfileForm } from "./profile"
+import { addEventsToProfileForm, addEventsToEditButton } from "./profile"
 import { addEventsToPlaceForm } from "./place"
 import { addEventsToAvatarForm } from "./avatar"
 import { validationConfig } from "./consts/validation-consts";
@@ -32,10 +30,8 @@ forms.forEach((form) => {
     formValidation.enableValidation();
 });
 
-addEventsToProfileForm();
+addEventsToProfileForm(userInfo);
+addEventsToAvatarForm(userInfo);
+addEventsToEditButton(userInfo);
 
 addEventsToPlaceForm();
-addEventsToAvatarForm();
-
-
-
