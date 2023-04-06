@@ -7,7 +7,7 @@ import { setInitialCards } from "./card"
 import { addEventsToProfileForm, setProfileData } from "./profile"
 import { addEventsToPlaceForm } from "./place"
 import { addEventsToAvatarForm } from "./avatar"
-import { validationConfig, forms } from "./consts/validation-consts";
+// import { validationConfig, forms } from "./consts/validation-consts";
 import FormValidation from './FormValidation';
 
 const api = new Api(apiConfig);
@@ -28,10 +28,10 @@ forms.forEach((form) => {
     formValidation.enableValidation();
 });
 
-addEventsToProfileForm();
+// addEventsToProfileForm();
 
 addEventsToPlaceForm();
-addEventsToAvatarForm();
+// addEventsToAvatarForm();
 
 
 

@@ -1,4 +1,4 @@
-import { openPopup } from "./modal.js"
+// import { openPopup } from "./modal.js"
 // import { removeCardFromServer, sendLikeToCardToServer, sendDisLikeToCardToServer } from "./api"
 import { Api } from "./Api.js";
 import { apiConfig } from "./consts/api-consts.js";
@@ -31,7 +31,7 @@ class Card {
     bigImg.setAttribute("src", this._link);
     bigImg.setAttribute("alt", this._title);
     bigImgText.textContent = this._title;
-    openPopup(popupWithBigImage);
+    // openPopup(popupWithBigImage);
   }
 
   _addRemoveListener() {

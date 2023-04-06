@@ -1,4 +1,4 @@
-import { openPopup, closePopup } from "./modal.js"
+// import { openPopup, closePopup } from "./modal.js"
 // import { updateProfileServerData } from "./api"
 import { Api } from "./Api.js";
 import { apiConfig } from "./consts/api-consts.js";
@@ -24,7 +24,7 @@ function setFieldsToEditProfileForm() {
 
 buttonProfileEdit.addEventListener("click", function () {
     setFieldsToEditProfileForm(); // вынос кода в отдельный метод делает его более читаемым. Согласно рекомендациям Боба Мартина Чистый Код
-    openPopup(popupProfileEdit);
+    // openPopup(popupProfileEdit);
 });
 
 function addEventsToProfileForm() {
@@ -35,7 +35,7 @@ function addEventsToProfileForm() {
         (new Api(apiConfig)).updateProfileServerData(fieldProfileName.value, fieldProfileDescription.value).then(() => {
             profileName.textContent = fieldProfileName.value;
             profileDescription.textContent = fieldProfileDescription.value;
-            closePopup(popupProfileEdit);
+            // closePopup(popupProfileEdit);
         }).catch((err) => {
             console.log(err); // выводим ошибку в консоль
         }).finally(() => {

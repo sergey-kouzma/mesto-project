@@ -1,8 +1,11 @@
-import { openPopup, closePopup } from "./modal.js"
+// import { openPopup, closePopup } from "./modal.js"
 import { Card } from "./card"
 // import { addCardToServer } from "./api.js";
 import { Api } from "./Api.js";
 import { apiConfig } from "./consts/api-consts.js";
+import { Popup } from "./Popup.js";
+
+const popupPlace = new Popup(".popup_place-add");
 
 const popupAddPlace = document.querySelector('.popup_place-add');
 const buttonAddPlace = document.querySelector(".profile__plus");
@@ -13,7 +16,8 @@ const formAddPlace = popupAddPlace.querySelector(".add-place__form");
 const buttonSaveForm = popupAddPlace.querySelector(".form__button");
 
 buttonAddPlace.addEventListener("click", function () {
-    openPopup(popupAddPlace);
+    // openPopup(popupAddPlace);
+    popupPlace.open();
 });
 
 function addEventsToPlaceForm() {
@@ -39,7 +43,7 @@ function addEventsToPlaceForm() {
             });
             
             formAddPlace.reset();
-            closePopup(popupAddPlace);
+            // closePopup(popupAddPlace);
         }).catch((err) => {
             console.log(err); // выводим ошибку в консоль
         }).finally(() => {
