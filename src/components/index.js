@@ -27,15 +27,6 @@ api.getInitialCards()])
     console.log(err);
 });
 
-// const cardList = new Section({
-//     items: items,
-//     renderer: (item) => {
-//         const card = new Card(item)
-//         const cardElement = card.createCard()
-//         cardList.addItem(cardElement)
-//     }
-// }, cardsContainer)
-
 forms.forEach((form) => {
     const formValidation = new FormValidation(validationConfig, form);
     formValidation.enableValidation();

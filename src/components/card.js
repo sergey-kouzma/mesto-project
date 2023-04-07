@@ -112,12 +112,10 @@ function setInitialCards(data, userId) {
         likes: item.likes.length,
         id: item._id,
         ownerId: item.owner._id,
-        // hasOwnLike: item.likes.find(item => item._id === profileId) != undefined
         hasOwnLike: item.likes.find(item => item._id === userId) != undefined,
         isOwnCard: userId === item.owner._id
       });
       const cardElement = card.createCard();
-      console.log(cardElement)
       cardList.addItem(cardElement);
     }
   }, cardsContainer)
