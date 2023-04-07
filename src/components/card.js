@@ -2,15 +2,17 @@ import { openPopup } from "./modal.js"
 // import { removeCardFromServer, sendLikeToCardToServer, sendDisLikeToCardToServer } from "./api"
 import { Api } from "./Api.js";
 import { apiConfig } from "./consts/api-consts.js";
-const profile = document.querySelector(".profile");
-const cardsContainer = document.querySelector(".elements");
+import Section from './Section';
+
+// const profile = document.querySelector(".profile");
+const cardsContainer = '.elements';
 // const cardTemplate = document.querySelector("#card-template").content;
 const cardTemplate = document.querySelector("#card-template").content.querySelector(".card");
 const popupWithBigImage = document.querySelector('.popup_big-image');
 const bigImg = popupWithBigImage.querySelector(".full-picture__img");
 const bigImgText = popupWithBigImage.querySelector(".full-picture__text");
 
-class Card {
+export default class Card {
   constructor({link, title, id, likes, isOwnCard, ownerId, hasOwnLike}) {
     this._link = link;
     this._title = title;
@@ -19,13 +21,12 @@ class Card {
     this._isOwnCard = isOwnCard;
     this._ownerId = ownerId;
     this._hasOwnLike = hasOwnLike;
-    // console.log(this);
   }
 
-  addCardToSite() {
-    this._createCard();
-    this._renderCard();
-  }
+  // addCardToSite() {
+  //   this.createCard();
+  //   this._renderCard();
+  // }
 
   _openBigImage() {
     bigImg.setAttribute("src", this._link);
@@ -68,7 +69,7 @@ class Card {
     });
   }
 
-  _createCard() {
+  createCard() {
     this._cardElement = cardTemplate.cloneNode(true);
     this._cardImg = this._cardElement.querySelector(".card__img");
     this._cardLikesAmount = this._cardElement.querySelector(".card__likes-amount");
@@ -92,35 +93,33 @@ class Card {
 
 
     this._cardImg.addEventListener("click", () => this._openBigImage());
+  }
  
+  // _renderCard() {
+  //   cardsContainer.prepend(this._cardElement);
+  // }
+} 
+ 
+ 
+function setInitialCards(data, userId) {
+  const cardList = new Section({
+    renderer: (item) => {
+      const card = new Card({
+        title: item.name,
+        link: item.link,
+        likes: item.likes.length,
+        id: item._id,
+        ownerId: item.owner._id,
+        // hasOwnLike: item.likes.find(item => item._id === profileId) != undefined
+        hasOwnLike: item.likes.find(item => item._id === userId) != undefined,
+        isOwnCard: userId === item.owner._id
+      });
+      const cardElement = card.createCard();
+      console.log(cardElement)
+      cardList.addItem(cardElement);
+    }
+  }, cardsContainer)
+  cardList.renderItems(data)
+} 
 
- 
- 
-  }
- 
-  _renderCard() {
-    cardsContainer.prepend(this._cardElement);
-  }
- 
- 
- 
-} 
- 
- 
-function setInitialCards(cardsList, currentUserId) {
-  const profileId = profile.dataset._id;
-  cardsList.forEach(function (card) {
-    new Card({
-      title: card.name,
-      link: card.link,
-      likes: card.likes.length,
-      id: card._id,
-      ownerId: card.owner._id,
-      // hasOwnLike: card.likes.find(item => item._id === profileId) != undefined
-      hasOwnLike: card.likes.find(item => item._id === currentUserId) != undefined,
-      isOwnCard: currentUserId === card.owner._id
-    }).addCardToSite();
-  });
-} 
- 
 export { Card, setInitialCards };

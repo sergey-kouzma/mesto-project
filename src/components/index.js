@@ -9,6 +9,8 @@ import { validationConfig } from "./consts/validation-consts";
 import { profileName, profileDescription, profileAvatar, forms } from './consts/const';
 import FormValidation from './FormValidation';
 import UserInfo from './UserInfo';
+// import Section from './Section';
+// import Card from './card';
 
 
 const userInfo = new UserInfo(profileName, profileDescription, profileAvatar);
@@ -21,9 +23,18 @@ api.getInitialCards()])
     userInfo.setUserInfo(profileData);
     setInitialCards(initialCards, profileData._id);
 })
-.catch((err) => {             //попадаем сюда если один из промисов завершится ошибкой 
+.catch((err) => {       //попадаем сюда если один из промисов завершится ошибкой 
     console.log(err);
 });
+
+// const cardList = new Section({
+//     items: items,
+//     renderer: (item) => {
+//         const card = new Card(item)
+//         const cardElement = card.createCard()
+//         cardList.addItem(cardElement)
+//     }
+// }, cardsContainer)
 
 forms.forEach((form) => {
     const formValidation = new FormValidation(validationConfig, form);
