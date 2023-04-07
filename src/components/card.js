@@ -70,12 +70,12 @@ export default class Card {
   }
 
   createCard() {
-    this._cardElement = cardTemplate.cloneNode(true);
-    this._cardImg = this._cardElement.querySelector(".card__img");
-    this._cardLikesAmount = this._cardElement.querySelector(".card__likes-amount");
-    this._blockName = this._cardElement.querySelector(".card__header");
-    this._cardLike = this._cardElement.querySelector(".card__like");
-    this._cardDelete = this._cardElement.querySelector(".card__delete");
+    const cardElement = cardTemplate.cloneNode(true);
+    this._cardImg = cardElement.querySelector(".card__img");
+    this._cardLikesAmount = cardElement.querySelector(".card__likes-amount");
+    this._blockName = cardElement.querySelector(".card__header");
+    this._cardLike = cardElement.querySelector(".card__like");
+    this._cardDelete = cardElement.querySelector(".card__delete");
     if (!this._isOwnCard) {
         this._cardDelete.remove();
     }
@@ -93,6 +93,8 @@ export default class Card {
 
 
     this._cardImg.addEventListener("click", () => this._openBigImage());
+
+    return cardElement;
   }
  
   // _renderCard() {
