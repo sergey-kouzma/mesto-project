@@ -5,12 +5,9 @@ import { setInitialCards } from "./card"
 import { addEventsToProfileForm, addEventsToEditButton } from "./profile"
 import { addEventsToPlaceForm } from "./place"
 import { addEventsToAvatarForm } from "./avatar"
-<<<<<<< HEAD
-// import { validationConfig, forms } from "./consts/validation-consts";
-=======
+
 import { validationConfig } from "./consts/validation-consts";
 import { profileName, profileDescription, profileAvatar, forms } from './consts/const';
->>>>>>> feat/mesto-update
 import FormValidation from './FormValidation';
 import UserInfo from './UserInfo';
 // import Section from './Section';
@@ -36,17 +33,10 @@ forms.forEach((form) => {
     formValidation.enableValidation();
 });
 
-<<<<<<< HEAD
-// addEventsToProfileForm();
 
-addEventsToPlaceForm();
-// addEventsToAvatarForm();
-
-
-=======
 addEventsToProfileForm(userInfo);
 addEventsToAvatarForm(userInfo);
 addEventsToEditButton(userInfo);
->>>>>>> feat/mesto-update
+
 
 addEventsToPlaceForm();
