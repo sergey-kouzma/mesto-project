@@ -4,6 +4,9 @@ import { Card } from "./card"
 import { Api } from "./Api.js";
 import { apiConfig } from "./consts/api-consts.js";
 import { PopupWithForm } from "./PopupWithForm";
+import Section from "./Section"
+
+const cardsContainer = '.elements';
 
 function initPlacesAdding(cardList) {
     const popupPlace = new PopupWithForm(".popup_place-add", savePlace);
@@ -18,14 +21,13 @@ function initPlacesAdding(cardList) {
             title: data.name,
             link: data.img
         }).then((card) => {
-            formAddPlace.reset();
             (new Section({}, cardsContainer).addItem(new Card(card, card.owner._id).createCard()))
-            closePopup(popupAddPlace);
+            popupPlace.close();
         }).catch((err) => {
             console.log(err); // выводим ошибку в консоль
         }).finally(() => {
-            renderLoading(evt, false);
+            popupPlace.resetLoadingStatus();
         });
-    });
+    };
 }
 export { initPlacesAdding };

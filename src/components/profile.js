@@ -24,7 +24,6 @@ function initProfileWork(userInfo) {
 
     function saveProfileData(data) {
         (new Api(apiConfig)).updateProfileServerData(data.name, data.description).then((profileData) => {
-            console.log(profileData);
             userInfo.setUserInfo(profileData)
             editProfilePopup.close();
         }).catch((err) => {

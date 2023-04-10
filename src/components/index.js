@@ -5,17 +5,12 @@ import { setInitialCards } from "./card"
 import { initProfileWork } from "./profile"
 import { initPlacesAdding } from "./place"
 import { initAvatarWork } from "./avatar"
-
 import { validationConfig } from "./consts/validation-consts";
 import { profileName, profileDescription, profileAvatar, forms } from './consts/const';
 import FormValidation from './FormValidation';
 import UserInfo from './UserInfo';
-// import Section from './Section';
-// import Card from './card';
-
 
 const userInfo = new UserInfo(profileName, profileDescription, profileAvatar);
-
 
 const api = new Api(apiConfig);
 Promise.all([                 //в Promise.all передаем массив промисов которые нужно выполнить 
@@ -34,7 +29,6 @@ forms.forEach((form) => {
     const formValidation = new FormValidation(validationConfig, form);
     formValidation.enableValidation();
 });
-
 
 initProfileWork(userInfo);
 initAvatarWork(userInfo);

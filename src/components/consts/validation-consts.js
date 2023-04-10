@@ -9,6 +9,4 @@ const validationConfig = {
     errorClass: '.form__field-error'
 }
 
-
-
 export { validationConfig }
