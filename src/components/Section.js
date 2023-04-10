@@ -5,7 +5,7 @@ export default class Section {
     }
 
     addItem(card) {
-        this._container.append(card);
+        this._container.prepend(card);
     }
 
     renderItems(items) {

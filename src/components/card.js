@@ -119,7 +119,8 @@ function setInitialCards(data, userId) {
       cardList.addItem(cardElement);
     }
   }, cardsContainer)
-  cardList.renderItems(data)
+  cardList.renderItems(data);
+  return cardList;
 } 
 
 export { Card, setInitialCards };

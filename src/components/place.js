@@ -3,36 +3,23 @@ import { Card } from "./card"
 // import { addCardToServer } from "./api.js";
 import { Api } from "./Api.js";
 import { apiConfig } from "./consts/api-consts.js";
-import { Popup } from "./Popup.js";
+import { PopupWithForm } from "./PopupWithForm";
 
-const popupPlace = new Popup(".popup_place-add");
+function initPlacesAdding(cardList) {
+    const popupPlace = new PopupWithForm(".popup_place-add", savePlace);
+    const buttonAddPlace = document.querySelector(".profile__plus");
 
-const popupAddPlace = document.querySelector('.popup_place-add');
-const buttonAddPlace = document.querySelector(".profile__plus");
+    buttonAddPlace.addEventListener("click", function () {
+        popupPlace.open();
+    });
 
-const placeFieldImg = popupAddPlace.querySelector(".add-place__img")
-const placeFieldName = popupAddPlace.querySelector(".add-place__name");
-const formAddPlace = popupAddPlace.querySelector(".add-place__form");
-const buttonSaveForm = popupAddPlace.querySelector(".form__button");
 
-buttonAddPlace.addEventListener("click", function () {
-    // openPopup(popupAddPlace);
-    popupPlace.open();
-});
-
-function addEventsToPlaceForm() {
-    formAddPlace.addEventListener("submit", function (event) {
-        event.preventDefault();
-        // addCard({
-        //     title: placeFieldName.value,
-        //     link: placeFieldImg.value
-        // });
-        buttonSaveForm.textContent = "Сохранение...";
+    function savePlace(data) {
         (new Api(apiConfig)).addCardToServer({
-            title: placeFieldName.value,
-            link: placeFieldImg.value
+            title: data.name,
+            link: data.img
         }).then((card) => {
-            (new Card()).addCardToSite({
+            const createdCard = (new Card({
                 title: card.name,
                 link: card.link,
                 likes: card.likes.length,
@@ -40,19 +27,16 @@ function addEventsToPlaceForm() {
                 ownerId: card.owner._id,
                 hasOwnLike: false,
                 isOwnCard: true
-            });
-            
-            formAddPlace.reset();
-            // closePopup(popupAddPlace);
+            })).createCard();
+            cardList.addItem(createdCard);
+            popupPlace.close();
         }).catch((err) => {
             console.log(err); // выводим ошибку в консоль
         }).finally(() => {
-            buttonSaveForm.textContent = "Сохранить";
-            buttonSaveForm.classList.add('form__button_disactive');
-            buttonSaveForm.setAttribute("disabled", "disabled");
+            popupPlace.resetLoadingStatus();
+            // buttonSaveForm.classList.add('form__button_disactive');
+            // buttonSaveForm.setAttribute("disabled", "disabled");
         });
-        // formAddPlace.reset();
-        // closePopup(popupAddPlace);
-    });
+    }
 }
-export { addEventsToPlaceForm };
+export { initPlacesAdding };
