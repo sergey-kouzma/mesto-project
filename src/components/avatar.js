@@ -1,35 +1,27 @@
-import { openPopup, closePopup } from "./modal.js"
+import { PopupWithForm } from "./PopupWithForm.js";
 import { Api } from "./Api.js";
 import { apiConfig } from "./consts/api-consts.js";
-import { renderLoading } from './utils/utils.js';
 
-const popupAvatarEdit = document.querySelector('.popup_avatar-edit');
-const profileAvatarBlock = document.querySelector('.profile__avatar');
+function initAvatarWork(userInfo) {
+    const avatarProfilePopup = new PopupWithForm('.popup_avatar-edit', saveAvatar);
 
-const formAvatarEdit = popupAvatarEdit.querySelector(".edit-avatar__form");
-const fieldAvatar = formAvatarEdit.querySelector(".edit-avatar__avatar");
+    const profileAvatarBlock = document.querySelector('.profile__avatar');
 
-profileAvatarBlock.addEventListener("click", function () {
-    openPopup(popupAvatarEdit);
-});
+    profileAvatarBlock.addEventListener("click", function () {
+        avatarProfilePopup.open();
+    });
 
-function addEventsToAvatarForm(userInfo) {
-    formAvatarEdit.addEventListener("submit", function (evt) {
-        evt.preventDefault();
-        renderLoading(evt, true);
-        (new Api(apiConfig)).updateAvatarAtServer(fieldAvatar.value)
+    function saveAvatar(data) {
+        (new Api(apiConfig)).updateAvatarAtServer(data.img)
         .then((profileData) => {
             userInfo.setUserInfo(profileData)
-            formAvatarEdit.reset();
-            closePopup(popupAvatarEdit);
+            avatarProfilePopup.close();
         }).catch((err) => {
             console.log(err); // выводим ошибку в консоль
         }).finally(() => {
-            renderLoading(evt, false)
+            editProfilePopup.resetLoadingStatus();
         });
-
-    });
+    }
 }
 
-
-export { addEventsToAvatarForm };
+export { initAvatarWork };

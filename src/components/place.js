@@ -1,29 +1,22 @@
-import { openPopup, closePopup } from "./modal.js"
-import Section from './Section';
-import Card from "./card"
+// import { openPopup, closePopup } from "./modal.js"
+import { Card } from "./card"
+// import { addCardToServer } from "./api.js";
 import { Api } from "./Api.js";
 import { apiConfig } from "./consts/api-consts.js";
-import { renderLoading } from './utils/utils.js'
+import { PopupWithForm } from "./PopupWithForm";
 
-const cardsContainer = '.elements';
-const popupAddPlace = document.querySelector('.popup_place-add');
-const buttonAddPlace = document.querySelector(".profile__plus");
+function initPlacesAdding(cardList) {
+    const popupPlace = new PopupWithForm(".popup_place-add", savePlace);
+    const buttonAddPlace = document.querySelector(".profile__plus");
 
-const placeFieldImg = popupAddPlace.querySelector(".add-place__img")
-const placeFieldName = popupAddPlace.querySelector(".add-place__name");
-const formAddPlace = popupAddPlace.querySelector(".add-place__form");
+    buttonAddPlace.addEventListener("click", function () {
+        popupPlace.open();
+    });
 
-buttonAddPlace.addEventListener("click", function () {
-    openPopup(popupAddPlace);
-});
-
-function addEventsToPlaceForm() {
-    formAddPlace.addEventListener("submit", function (evt) {
-        evt.preventDefault();
-        renderLoading(evt, true);
+    function savePlace(data) {
         (new Api(apiConfig)).addCardToServer({
-            title: placeFieldName.value,
-            link: placeFieldImg.value
+            title: data.name,
+            link: data.img
         }).then((card) => {
             formAddPlace.reset();
             (new Section({}, cardsContainer).addItem(new Card(card, card.owner._id).createCard()))
@@ -35,4 +28,4 @@ function addEventsToPlaceForm() {
         });
     });
 }
-export { addEventsToPlaceForm };
+export { initPlacesAdding };
