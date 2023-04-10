@@ -1,12 +1,7 @@
-//import { openPopup, closePopup } from "./modal.js"
-import {Popup} from './Popup.js';
 import {PopupWithForm} from './PopupWithForm.js';
 
 import { Api } from "./Api.js";
 import { apiConfig } from "./consts/api-consts.js";
-
-import { renderLoading } from './utils/utils.js';
-
 function initProfileWork(userInfo) {
     const editProfilePopup = new PopupWithForm('.popup_profile-edit', saveProfileData, setFieldsToEditProfileForm);
 
@@ -16,20 +11,11 @@ function initProfileWork(userInfo) {
     const fieldProfileName = popupProfileEdit.querySelector(".edit-profile__name");
     const fieldProfileDescription = popupProfileEdit.querySelector(".edit-profile__description");
 
-
-
-
     function addEventsToEditButton() {
         buttonProfileEdit.addEventListener("click", function () {
             editProfilePopup.open();
         });
     }
-
-
-
-    addEventsToEditButton();
-    
-
 
     function setFieldsToEditProfileForm() {
         fieldProfileName.value = userInfo.getUserInfo().userName;
@@ -38,11 +24,16 @@ function initProfileWork(userInfo) {
 
     function saveProfileData(data) {
         (new Api(apiConfig)).updateProfileServerData(data.name, data.description).then((profileData) => {
+            console.log(profileData);
             userInfo.setUserInfo(profileData)
             editProfilePopup.close();
         }).catch((err) => {
             console.log(err); // выводим ошибку в консоль
+        }).finally(() => {
+            editProfilePopup.resetLoadingStatus();
         });
     }
+
+    addEventsToEditButton();
 }
 export {initProfileWork};

@@ -4,7 +4,7 @@ import { apiConfig } from './consts/api-consts';
 import { setInitialCards } from "./card"
 import { initProfileWork } from "./profile"
 // import { addEventsToPlaceForm } from "./place"
-// import { addEventsToAvatarForm } from "./avatar"
+import { initAvatarWork } from "./avatar"
 
 import { validationConfig } from "./consts/validation-consts";
 import { profileName, profileDescription, profileAvatar, forms } from './consts/const';
@@ -41,3 +41,4 @@ api.getInitialCards()])
 
 // addEventsToPlaceForm();
 initProfileWork(userInfo);
+initAvatarWork(userInfo);
