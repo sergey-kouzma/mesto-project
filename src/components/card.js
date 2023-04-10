@@ -1,7 +1,8 @@
-import { openPopup } from "./modal.js"
+// import { openPopup } from "./modal.js"
 // import { removeCardFromServer, sendLikeToCardToServer, sendDisLikeToCardToServer } from "./api"
 import { Api } from "./Api.js";
 import { apiConfig } from "./consts/api-consts.js";
+import PopupWithImage from "./PopupWithImage.js";
 import Section from './Section';
 
 // const profile = document.querySelector(".profile");
@@ -29,10 +30,11 @@ export default class Card {
   // }
 
   _openBigImage() {
-    bigImg.setAttribute("src", this._link);
-    bigImg.setAttribute("alt", this._title);
-    bigImgText.textContent = this._title;
-    openPopup(popupWithBigImage);
+    // bigImg.setAttribute("src", this._link);
+    // bigImg.setAttribute("alt", this._title);
+    // bigImgText.textContent = this._title;
+    (new PopupWithImage('.popup_big-image')).open(this._title, this._link);
+    // openPopup(popupWithBigImage);
   }
 
   _addRemoveListener() {
@@ -119,7 +121,8 @@ function setInitialCards(data, userId) {
       cardList.addItem(cardElement);
     }
   }, cardsContainer)
-  cardList.renderItems(data)
+  cardList.renderItems(data);
+  return cardList;
 } 
 
 export { Card, setInitialCards };

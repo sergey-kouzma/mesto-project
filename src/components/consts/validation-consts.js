@@ -7,7 +7,7 @@ const validationConfig = {
     submitButtonSelector: '.form__button',
     inactiveButtonSelector: 'form__button_disactive',
     errorClass: '.form__field-error'
-};
+}
 
 
 
