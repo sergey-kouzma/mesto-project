@@ -2,9 +2,9 @@ import './../pages/index.css';
 import { Api } from './Api';
 import { apiConfig } from './consts/api-consts';
 import { setInitialCards } from "./card"
-import { addEventsToProfileForm, addEventsToEditButton } from "./profile"
-import { addEventsToPlaceForm } from "./place"
-import { addEventsToAvatarForm } from "./avatar"
+import { initProfileWork } from "./profile"
+// import { addEventsToPlaceForm } from "./place"
+// import { addEventsToAvatarForm } from "./avatar"
 
 import { validationConfig } from "./consts/validation-consts";
 import { profileName, profileDescription, profileAvatar, forms } from './consts/const';
@@ -28,15 +28,16 @@ api.getInitialCards()])
     console.log(err);
 });
 
-forms.forEach((form) => {
-    const formValidation = new FormValidation(validationConfig, form);
-    formValidation.enableValidation();
-});
+// forms.forEach((form) => {
+//     const formValidation = new FormValidation(validationConfig, form);
+//     formValidation.enableValidation();
+// });
 
 
-addEventsToProfileForm(userInfo);
-addEventsToAvatarForm(userInfo);
-addEventsToEditButton(userInfo);
+// addEventsToProfileForm(userInfo);
+// addEventsToAvatarForm(userInfo);
+// addEventsToEditButton(userInfo);
 
 
-addEventsToPlaceForm();
+// addEventsToPlaceForm();
+initProfileWork(userInfo);

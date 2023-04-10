@@ -1,19 +1,20 @@
 export class Popup {
     constructor(popupSelector) {
         this._popupElement = document.querySelector(popupSelector); // popup_opened
+        this._closeByEsc = this._closeByEsc.bind(this);
+        this._setEventListeners();
+        
     }
 
     close()  {
-        this._popupElement.classlist.remove('popup_opened');
+        this._popupElement.classList.remove('popup_opened');
     }
 
-    // setEventListeners() {
-    //     document.addEventListener('keyup', this._closeByEsc);
-    //     this.card.querySelector('popup_no-borders').addEventListener('click', this._closeByOverlay);
-    //     this.card.querySelector('popup__close').addEventListener("click", function () {
-    //         this.close();
-    //     });
-    // }
+    _setEventListeners() {
+        document.addEventListener('keyup', (e) => this._closeByEsc(e));
+        this._popupElement.addEventListener('click', (e) => this._closeByOverlay(e));
+        this._popupElement.querySelector('.popup__close').addEventListener("click", () => this.close());
+    }
 
     open() {
         this._popupElement.classList.add("popup_opened");
@@ -26,15 +27,11 @@ export class Popup {
         }
     } 
     
-    // _closeByOverlay(event) {
-    //     if (event.target === event.currentTarget) {
-    //         this.close(event.target);
-    //     }
-    // } 
+    _closeByOverlay(event) {
+        if (event.target === event.currentTarget) {
+            this.close(event.target);
+        }
+    } 
 
-    // _addCloseButtonEvent(closeButton) {
-    //     const popupToClose = closeButton.closest('.popup');
-        
-    // }
 }
 

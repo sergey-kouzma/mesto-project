@@ -1,54 +1,48 @@
-import { openPopup, closePopup } from "./modal.js"
+//import { openPopup, closePopup } from "./modal.js"
+import {Popup} from './Popup.js';
+import {PopupWithForm} from './PopupWithForm.js';
 
 import { Api } from "./Api.js";
 import { apiConfig } from "./consts/api-consts.js";
 
-import { renderLoading } from './utils/utils.js'
+import { renderLoading } from './utils/utils.js';
 
-const popupProfileEdit = document.querySelector('.popup_profile-edit');
-const buttonProfileEdit = document.querySelector(".profile__edit-button");
+function initProfileWork(userInfo) {
+    const editProfilePopup = new PopupWithForm('.popup_profile-edit', saveProfileData, setFieldsToEditProfileForm);
 
-const formProfileEdit = popupProfileEdit.querySelector(".edit-profile__form");
-const fieldProfileName = popupProfileEdit.querySelector(".edit-profile__name");
-const fieldProfileDescription = popupProfileEdit.querySelector(".edit-profile__description");
+    const popupProfileEdit = document.querySelector('.popup_profile-edit');
+    const buttonProfileEdit = document.querySelector(".profile__edit-button");
 
-const addEventsToEditButton = (userInfo) => {
-    buttonProfileEdit.addEventListener("click", () => {
-        fieldProfileName.value = userInfo.getUserInfo().userName
-        fieldProfileDescription.value = userInfo.getUserInfo().userInfo
-        openPopup(popupProfileEdit);
-    });
-}
+    const fieldProfileName = popupProfileEdit.querySelector(".edit-profile__name");
+    const fieldProfileDescription = popupProfileEdit.querySelector(".edit-profile__description");
 
-buttonProfileEdit.addEventListener("click", function () {
-    setFieldsToEditProfileForm(); // вынос кода в отдельный метод делает его более читаемым. Согласно рекомендациям Боба Мартина Чистый Код
-    // openPopup(popupProfileEdit);
-});
 
-function addEventsToProfileForm() {
-    formProfileEdit.addEventListener("submit", function (event) {
-        event.preventDefault();
 
-        buttonProfileSave.textContent = "Сохранение...";
-        (new Api(apiConfig)).updateProfileServerData(fieldProfileName.value, fieldProfileDescription.value).then(() => {
-            profileName.textContent = fieldProfileName.value;
-            profileDescription.textContent = fieldProfileDescription.value;
-            // closePopup(popupProfileEdit);
 
-// const addEventsToProfileForm = (userInfo) => {
-//     formProfileEdit.addEventListener("submit", (evt) => {
-//         evt.preventDefault();
-//         renderLoading(evt, true);
-//         (new Api(apiConfig)).updateProfileServerData(fieldProfileName.value, fieldProfileDescription.value)
-//         .then((profileData) => {
-//             userInfo.setUserInfo(profileData)
-//             closePopup(popupProfileEdit);
+    function addEventsToEditButton() {
+        buttonProfileEdit.addEventListener("click", function () {
+            editProfilePopup.open();
+        });
+    }
+
+
+
+    addEventsToEditButton();
+    
+
+
+    function setFieldsToEditProfileForm() {
+        fieldProfileName.value = userInfo.getUserInfo().userName;
+        fieldProfileDescription.value = userInfo.getUserInfo().userInfo;
+    }
+
+    function saveProfileData(data) {
+        (new Api(apiConfig)).updateProfileServerData(data.name, data.description).then((profileData) => {
+            userInfo.setUserInfo(profileData)
+            editProfilePopup.close();
         }).catch((err) => {
             console.log(err); // выводим ошибку в консоль
-        }).finally(() => {
-            renderLoading(evt, false)
         });
-    });
+    }
 }
-
-export { addEventsToProfileForm, addEventsToEditButton };
+export {initProfileWork};
