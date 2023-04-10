@@ -13,30 +13,19 @@ function initPlacesAdding(cardList) {
         popupPlace.open();
     });
 
-
     function savePlace(data) {
         (new Api(apiConfig)).addCardToServer({
             title: data.name,
             link: data.img
         }).then((card) => {
-            const createdCard = (new Card({
-                title: card.name,
-                link: card.link,
-                likes: card.likes.length,
-                id: card._id,
-                ownerId: card.owner._id,
-                hasOwnLike: false,
-                isOwnCard: true
-            })).createCard();
-            cardList.addItem(createdCard);
-            popupPlace.close();
+            formAddPlace.reset();
+            (new Section({}, cardsContainer).addItem(new Card(card, card.owner._id).createCard()))
+            closePopup(popupAddPlace);
         }).catch((err) => {
             console.log(err); // выводим ошибку в консоль
         }).finally(() => {
-            popupPlace.resetLoadingStatus();
-            // buttonSaveForm.classList.add('form__button_disactive');
-            // buttonSaveForm.setAttribute("disabled", "disabled");
+            renderLoading(evt, false);
         });
-    }
+    });
 }
 export { initPlacesAdding };
