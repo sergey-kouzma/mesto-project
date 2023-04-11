@@ -1,14 +1,9 @@
-// import { openPopup } from "./modal.js"
-// import { removeCardFromServer, sendLikeToCardToServer, sendDisLikeToCardToServer } from "./api"
 import { Api } from "./Api.js";
 import { apiConfig } from "./consts/api-consts.js";
 import PopupWithImage from "./PopupWithImage.js";
 import Section from './Section';
 
 const cardsContainer = '.elements';
-const popupWithBigImage = document.querySelector('.popup_big-image');
-const bigImg = popupWithBigImage.querySelector(".full-picture__img");
-const bigImgText = popupWithBigImage.querySelector(".full-picture__text");
 
 export default class Card {
   constructor(data, myId) {
@@ -117,7 +112,7 @@ function setInitialCards(data, userId) {
       cardList.addItem(cardElement);
     }
   }, cardsContainer)
-  cardList.renderItems(data);
+  cardList.renderItems(data.reverse());
   return cardList;
 } 
 
