@@ -8,7 +8,7 @@ import { validationConfig } from "../components/utils/validation-consts";
 import { profileName, profileDescription, profileAvatar, forms, cardsContainer, cardSelector } from '../components/utils/const';
 import FormValidation from '../components/FormValidation';
 import UserInfo from '../components/UserInfo';
-import Card from '../components/Card.js';
+import Card from '../components/Card';
 import Section from '../components/Section';
 import { PopupWithForm } from "../components/PopupWithForm";
 
