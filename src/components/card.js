@@ -1,9 +1,8 @@
 import { Api } from "./Api.js";
 import { apiConfig } from "./utils/api-consts.js";
 import PopupWithImage from "./PopupWithImage.js";
-import Section from './Section.js';
 
-const cardsContainer = '.elements';
+
 
 export default class Card {
   constructor(data, myId, cardSelector) {
@@ -42,43 +41,43 @@ export default class Card {
 
   _myLikeChecker() {
     this._likes.forEach((like) => {
-      if(like._id === this._myId) {
+      if (like._id === this._myId) {
         this._cardLike.classList.add("card__like_active")
       }
     })
   }
 
   _addRemoveListener() {
-    this._cardDelete.addEventListener("click",  () =>  {
+    this._cardDelete.addEventListener("click", () => {
       (new Api(apiConfig)).removeCardFromServer(this._id)
-      .then(() => {
-        this._cardElement.remove();
-      }).catch(err => {
-        console.log(err); // выводим ошибку в консоль
-      });
+        .then(() => {
+          this._cardElement.remove();
+        }).catch(err => {
+          console.log(err); // выводим ошибку в консоль
+        });
     });
   }
 
   _addLikesListener() {
     this._cardLike.addEventListener("click", () => {
-      
+
       if (this._cardLike.classList.contains("card__like_active")) {
         (new Api(apiConfig)).sendDisLikeToCardToServer(this._id)
-        .then(card => {
-          this._cardLikesAmount.textContent = card.likes.length
-          this._cardLike.classList.toggle("card__like_active");
-        }).catch(err => {
-          console.log(err); // выводим ошибку в консоль
-        });
+          .then(card => {
+            this._cardLikesAmount.textContent = card.likes.length
+            this._cardLike.classList.toggle("card__like_active");
+          }).catch(err => {
+            console.log(err); // выводим ошибку в консоль
+          });
       }
       else {
         (new Api(apiConfig)).sendLikeToCardToServer(this._id)
-        .then(card => {
-          this._cardLikesAmount.textContent = card.likes.length
-          this._cardLike.classList.toggle("card__like_active");
-        }).catch(err => {
-          console.log(err); // выводим ошибку в консоль
-        });
+          .then(card => {
+            this._cardLikesAmount.textContent = card.likes.length
+            this._cardLike.classList.toggle("card__like_active");
+          }).catch(err => {
+            console.log(err); // выводим ошибку в консоль
+          });
       }
     });
   }
@@ -99,25 +98,11 @@ export default class Card {
     this._blockName = this._cardElement.querySelector(".card__header").textContent = this._title;
     this._cardLike = this._cardElement.querySelector(".card__like");
     this._cardDelete = this._cardElement.querySelector(".card__delete");
-    
+
     this._myLikeChecker()
     this._myCardChecker();
     this._setEventListeners();
 
     return this._cardElement;
   }
-} 
- 
-function setInitialCards(data, userId) {
-  const cardList = new Section({
-    renderer: item => {
-      const card = new Card(item, userId);
-      const cardElement = card.createCard();
-      cardList.addItem(cardElement);
-    }
-  }, cardsContainer)
-  cardList.renderItems(data.reverse());
-  return cardList;
-} 
-
-export { Card, setInitialCards };
+}

@@ -1,4 +1,4 @@
-import {PopupWithForm} from './PopupWithForm.js';
+import { PopupWithForm } from './PopupWithForm.js';
 import { Api } from "./Api.js";
 import { apiConfig } from "./utils/api-consts.js";
 
@@ -18,8 +18,9 @@ function initProfileWork(userInfo) {
     }
 
     function setFieldsToEditProfileForm() {
-        fieldProfileName.value = userInfo.getUserInfo().userName;
-        fieldProfileDescription.value = userInfo.getUserInfo().userInfo;
+        const { userName, userDescription } = userInfo.getUserInfo()
+        fieldProfileName.value = userName;
+        fieldProfileDescription.value = userDescription;
     }
 
     function saveProfileData(data) {
@@ -35,4 +36,4 @@ function initProfileWork(userInfo) {
 
     addEventsToEditButton();
 }
-export {initProfileWork};
+export { initProfileWork };
