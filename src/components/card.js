@@ -6,7 +6,7 @@ import Section from './Section.js';
 const cardsContainer = '.elements';
 
 export default class Card {
-  constructor(data, myId) {
+  constructor(data, myId, cardSelector) {
     this._link = data.link;
     this._title = data.name;
     this._id = data._id;
@@ -14,15 +14,15 @@ export default class Card {
     this._totalLikes = data.likes.length;
     this._ownerId = data.owner._id;
     this._myId = myId;
+    this._cardSelector = cardSelector;
   }
 
   _getElement() {
     const cardElement = document
-      .querySelector("#card-template")
+      .querySelector(this._cardSelector)
       .content
       .querySelector(".card")
       .cloneNode(true);
-
     return cardElement;
   }
 

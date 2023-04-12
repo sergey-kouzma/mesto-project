@@ -1,8 +1,8 @@
-import { Card } from "./Card"
-import { Api } from "./Api.js";
-import { apiConfig } from "./utils/api-consts.js";
+import  Card from "./Card";
+import { Api } from "./Api";
+import { apiConfig } from "./utils/api-consts";
 import { PopupWithForm } from "./PopupWithForm";
-import Section from "./Section"
+import Section from "./Section";
 
 const cardsContainer = '.elements';
 
@@ -22,7 +22,7 @@ function initPlacesAdding(cardList) {
             (new Section({}, cardsContainer).addItem(new Card(card, card.owner._id).createCard()))
             popupPlace.close();
         }).catch((err) => {
-            console.log(err); // выводим ошибку в консоль
+            console.log(err);
         }).finally(() => {
             popupPlace.resetLoadingStatus();
         });
