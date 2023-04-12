@@ -1,8 +1,6 @@
-// import { openPopup, closePopup } from "./modal.js"
-import { Card } from "./card"
-// import { addCardToServer } from "./api.js";
+import { Card } from "./Card"
 import { Api } from "./Api.js";
-import { apiConfig } from "./consts/api-consts.js";
+import { apiConfig } from "./utils/api-consts.js";
 import { PopupWithForm } from "./PopupWithForm";
 import Section from "./Section"
 

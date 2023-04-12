@@ -1,7 +1,7 @@
 import {PopupWithForm} from './PopupWithForm.js';
-
 import { Api } from "./Api.js";
-import { apiConfig } from "./consts/api-consts.js";
+import { apiConfig } from "./utils/api-consts.js";
+
 function initProfileWork(userInfo) {
     const editProfilePopup = new PopupWithForm('.popup_profile-edit', saveProfileData, setFieldsToEditProfileForm);
 

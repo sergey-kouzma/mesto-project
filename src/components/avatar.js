@@ -1,6 +1,6 @@
 import { PopupWithForm } from "./PopupWithForm.js";
 import { Api } from "./Api.js";
-import { apiConfig } from "./consts/api-consts.js";
+import { apiConfig } from "./utils/api-consts.js";
 
 function initAvatarWork(userInfo) {
     const avatarProfilePopup = new PopupWithForm('.popup_avatar-edit', saveAvatar);
@@ -19,7 +19,7 @@ function initAvatarWork(userInfo) {
         }).catch((err) => {
             console.log(err); // выводим ошибку в консоль
         }).finally(() => {
-            editProfilePopup.resetLoadingStatus();
+            avatarProfilePopup.resetLoadingStatus();
         });
     }
 }

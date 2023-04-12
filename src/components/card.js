@@ -1,7 +1,7 @@
 import { Api } from "./Api.js";
-import { apiConfig } from "./consts/api-consts.js";
+import { apiConfig } from "./utils/api-consts.js";
 import PopupWithImage from "./PopupWithImage.js";
-import Section from './Section';
+import Section from './Section.js';
 
 const cardsContainer = '.elements';
 
@@ -83,6 +83,12 @@ export default class Card {
     });
   }
 
+  _setEventListeners() {
+    this._addLikesListener();
+    this._addRemoveListener();
+    this._cardImg.addEventListener("click", () => this._openBigImage());
+  }
+
   createCard() {
     this._cardElement = this._getElement();
     this._cardImg = this._cardElement.querySelector(".card__img");
@@ -96,9 +102,7 @@ export default class Card {
     
     this._myLikeChecker()
     this._myCardChecker();
-    this._addLikesListener();
-    this._addRemoveListener();
-    this._cardImg.addEventListener("click", () => this._openBigImage());
+    this._setEventListeners();
 
     return this._cardElement;
   }
