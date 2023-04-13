@@ -1,11 +1,5 @@
-import { Api } from "./Api.js";
-import { apiConfig } from "./utils/api-consts.js";
-import PopupWithImage from "./PopupWithImage.js";
-
-
-
 export default class Card {
-  constructor(data, myId, cardSelector) {
+  constructor(data, myId, cardSelector, handleCardClick, handleDeleteIconClick, handleSetLike, handleSetDislike) {
     this._link = data.link;
     this._title = data.name;
     this._id = data._id;
@@ -14,6 +8,10 @@ export default class Card {
     this._ownerId = data.owner._id;
     this._myId = myId;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
+    this._handleDeleteIconClick = handleDeleteIconClick;
+    this._handleSetLike = handleSetLike;
+    this._handleSetDislike = handleSetDislike;
   }
 
   _getElement() {
@@ -23,14 +21,6 @@ export default class Card {
       .querySelector(".card")
       .cloneNode(true);
     return cardElement;
-  }
-
-  _openBigImage() {
-    // bigImg.setAttribute("src", this._link);
-    // bigImg.setAttribute("alt", this._title);
-    // bigImgText.textContent = this._title;
-    (new PopupWithImage('.popup_big-image')).open(this._title, this._link);
-    // openPopup(popupWithBigImage);
   }
 
   _myCardChecker() {
@@ -49,43 +39,36 @@ export default class Card {
 
   _addRemoveListener() {
     this._cardDelete.addEventListener("click", () => {
-      (new Api(apiConfig)).removeCardFromServer(this._id)
-        .then(() => {
-          this._cardElement.remove();
-        }).catch(err => {
-          console.log(err); // выводим ошибку в консоль
-        });
+      this._handleDeleteIconClick(this, this._id);
     });
+  }
+
+  remove() {
+    this._cardElement.remove();
   }
 
   _addLikesListener() {
     this._cardLike.addEventListener("click", () => {
 
       if (this._cardLike.classList.contains("card__like_active")) {
-        (new Api(apiConfig)).sendDisLikeToCardToServer(this._id)
-          .then(card => {
-            this._cardLikesAmount.textContent = card.likes.length
-            this._cardLike.classList.toggle("card__like_active");
-          }).catch(err => {
-            console.log(err); // выводим ошибку в консоль
-          });
+        this._handleSetDislike(this, this._id);
       }
       else {
-        (new Api(apiConfig)).sendLikeToCardToServer(this._id)
-          .then(card => {
-            this._cardLikesAmount.textContent = card.likes.length
-            this._cardLike.classList.toggle("card__like_active");
-          }).catch(err => {
-            console.log(err); // выводим ошибку в консоль
-          });
+        this._handleSetLike(this, this._id);
       }
     });
+  }
+
+  likeCard(data) {
+    this._likes = data.likes;
+    this._cardLikesAmount.textContent = this._likes.length;
+    this._cardLike.classList.toggle("card__like_active");
   }
 
   _setEventListeners() {
     this._addLikesListener();
     this._addRemoveListener();
-    this._cardImg.addEventListener("click", () => this._openBigImage());
+    this._cardImg.addEventListener("click", () => this._handleCardClick(this._title, this._link));
   }
 
   createCard() {
