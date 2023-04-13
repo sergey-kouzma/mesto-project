@@ -25,10 +25,10 @@ api.getInitialCards()])
     console.log(err);
 });
 
-forms.forEach((form) => {
-    const formValidation = new FormValidation(validationConfig, form);
-    formValidation.enableValidation();
-});
+// forms.forEach((form) => {
+//     const formValidation = new FormValidation(validationConfig, form);
+//     formValidation.enableValidation();
+// });
 
 initProfileWork(userInfo);
 initAvatarWork(userInfo);

@@ -1,9 +1,13 @@
 import {PopupWithForm} from './PopupWithForm.js';
+import { validationConfig } from './consts/validation-consts.js';
 
 import { Api } from "./Api.js";
 import { apiConfig } from "./consts/api-consts.js";
+import FormValidation from './FormValidation.js';
 function initProfileWork(userInfo) {
-    const editProfilePopup = new PopupWithForm('.popup_profile-edit', saveProfileData, setFieldsToEditProfileForm);
+    const profileValidator = new FormValidation(validationConfig, document.querySelector('.edit-profile__form'));
+    profileValidator.enableValidation();
+    const editProfilePopup = new PopupWithForm('.popup_profile-edit', saveProfileData, profileValidator, setFieldsToEditProfileForm);
 
     const popupProfileEdit = document.querySelector('.popup_profile-edit');
     const buttonProfileEdit = document.querySelector(".profile__edit-button");

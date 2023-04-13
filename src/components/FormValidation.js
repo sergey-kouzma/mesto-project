@@ -57,6 +57,13 @@ export default class FormValidation {
         }
     }
 
+    formReset() {
+        this._inputList.forEach(input => {
+            this._hideError(input.closest(this._inputBlockSelector).querySelector(this._errorNotification), input);
+        });
+        this._toggleButtonState();
+    }
+
     _setEventListeners() {
         this._toggleButtonState();
 
