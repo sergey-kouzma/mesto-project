@@ -1,8 +1,7 @@
 import { PopupWithForm } from "./PopupWithForm.js";
-import { Api } from "./Api.js";
-import { apiConfig } from "./utils/api-consts.js";
+import {api, userInfo} from "../components/initObjects"
 
-function initAvatarWork(userInfo) {
+export default function initAvatarWork() {
     const avatarProfilePopup = new PopupWithForm('.popup_avatar-edit', saveAvatar);
 
     const profileAvatarBlock = document.querySelector('.profile__avatar');
@@ -12,7 +11,7 @@ function initAvatarWork(userInfo) {
     });
 
     function saveAvatar(data) {
-        (new Api(apiConfig)).updateAvatarAtServer(data.img)
+        api.updateAvatarAtServer(data.img)
         .then((profileData) => {
             userInfo.setUserInfo(profileData)
             avatarProfilePopup.close();
@@ -23,5 +22,3 @@ function initAvatarWork(userInfo) {
         });
     }
 }
-
-export { initAvatarWork };

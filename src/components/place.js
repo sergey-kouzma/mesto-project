@@ -1,12 +1,8 @@
-import  Card from "./Card";
-import { Api } from "./Api";
-import { apiConfig } from "./utils/api-consts";
+import {api, cardList} from "../components/initObjects";
 import { PopupWithForm } from "./PopupWithForm";
-import Section from "./Section";
+import createCard from '../components/createCard';
 
-const cardsContainer = '.elements';
-
-function initPlacesAdding(cardList) {
+export default function initPlacesAdding() {
     const popupPlace = new PopupWithForm(".popup_place-add", savePlace);
     const buttonAddPlace = document.querySelector(".profile__plus");
 
@@ -15,11 +11,11 @@ function initPlacesAdding(cardList) {
     });
 
     function savePlace(data) {
-        (new Api(apiConfig)).addCardToServer({
+        api.addCardToServer({
             title: data.name,
             link: data.img
         }).then((card) => {
-            (new Section({}, cardsContainer).addItem(new Card(card, card.owner._id).createCard()))
+            cardList.addItem(createCard(card, card.owner._id))
             popupPlace.close();
         }).catch((err) => {
             console.log(err);
@@ -28,4 +24,3 @@ function initPlacesAdding(cardList) {
         });
     };
 }
-export { initPlacesAdding };

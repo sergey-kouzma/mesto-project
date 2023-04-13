@@ -1,8 +1,7 @@
 import { PopupWithForm } from './PopupWithForm.js';
-import { Api } from "./Api.js";
-import { apiConfig } from "./utils/api-consts.js";
+import {api, userInfo} from "../components/initObjects"
 
-function initProfileWork(userInfo) {
+export default function initProfileWork() {
     const editProfilePopup = new PopupWithForm('.popup_profile-edit', saveProfileData, setFieldsToEditProfileForm);
 
     const popupProfileEdit = document.querySelector('.popup_profile-edit');
@@ -24,7 +23,7 @@ function initProfileWork(userInfo) {
     }
 
     function saveProfileData(data) {
-        (new Api(apiConfig)).updateProfileServerData(data.name, data.description).then((profileData) => {
+        api.updateProfileServerData(data.name, data.description).then((profileData) => {
             userInfo.setUserInfo(profileData)
             editProfilePopup.close();
         }).catch((err) => {
@@ -36,4 +35,3 @@ function initProfileWork(userInfo) {
 
     addEventsToEditButton();
 }
-export { initProfileWork };
