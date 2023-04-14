@@ -4,6 +4,7 @@ export class PopupWithForm extends Popup {
   constructor(popupSelector, handleFormSubmit, handleOpen = () => { }) {
     super(popupSelector);
     this._submitButton = this._popupElement.querySelector('.form__button');
+    this.__submitButtonText = this._submitButton.textContent;
     this._handleFormSubmit = handleFormSubmit;
     this._handleOpen = handleOpen;
 
@@ -36,12 +37,13 @@ export class PopupWithForm extends Popup {
     super.open();
   }
 
-  setLoadingStatus() {
-    this._submitButton.textContent = 'Сохранение...';
+  setLoadingStatus(loadingText = 'Сохранение...') {
+    this._submitButton.textContent = loadingText;
   }
 
   resetLoadingStatus() {
-    this._submitButton.textContent = 'Сохранить';
+    this._submitButton.textContent = this.__submitButtonText;
   }
+  
 
 }
