@@ -1,40 +1,24 @@
-import { openPopup, closePopup } from "./modal.js"
-// import { updateAvatarAtServer } from "./api"
-import { Api } from "./Api.js";
-import { apiConfig } from "./consts/api-consts.js";
-const popupAvatarEdit = document.querySelector('.popup_avatar-edit');
-const profileAvatarBlock = document.querySelector('.profile__avatar');
-const profileAvatar = document.querySelector('.profile__avatar-img');
+import { PopupWithForm } from "./PopupWithForm.js";
+import {api, userInfo} from "../components/initObjects"
 
+export default function initAvatarWork() {
+    const avatarProfilePopup = new PopupWithForm('.popup_avatar-edit', saveAvatar);
 
-const formAvatarEdit = popupAvatarEdit.querySelector(".edit-avatar__form");
-const fieldAvatar = formAvatarEdit.querySelector(".edit-avatar__avatar");
-const buttonAvatarSave = formAvatarEdit.querySelector(".form__button");
+    const profileAvatarBlock = document.querySelector('.profile__avatar');
 
-function setFieldsToEditAvatarForm() {
-    fieldAvatar.value = "";
-}
+    profileAvatarBlock.addEventListener("click", function () {
+        avatarProfilePopup.open();
+    });
 
-profileAvatarBlock.addEventListener("click", function () {
-    setFieldsToEditAvatarForm(); // вынос кода в отдельный метод делает его более читаемым. Согласно рекомендациям Боба Мартина Чистый Код
-    openPopup(popupAvatarEdit);
-});
-
-function addEventsToAvatarForm() {
-    formAvatarEdit.addEventListener("submit", function (event) {
-        event.preventDefault();
-        buttonAvatarSave.textContent = "Сохранение...";
-        (new Api(apiConfig)).updateAvatarAtServer(fieldAvatar.value).then(() => {
-            profileAvatar.setAttribute('src', fieldAvatar.value);
-            closePopup(popupAvatarEdit);
+    function saveAvatar(data) {
+        api.updateAvatarAtServer(data.img)
+        .then((profileData) => {
+            userInfo.setUserInfo(profileData)
+            avatarProfilePopup.close();
         }).catch((err) => {
             console.log(err); // выводим ошибку в консоль
         }).finally(() => {
-            buttonAvatarSave.textContent = "Сохранить";
+            avatarProfilePopup.resetLoadingStatus();
         });
-
-    });
+    }
 }
-
-
-export { addEventsToAvatarForm };
